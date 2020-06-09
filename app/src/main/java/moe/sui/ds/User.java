@@ -6,8 +6,8 @@ import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.sql.saveable.AutoIncrementModelSaver;
 /* -----------------------
-   就餐人员表 拥有属性
-   就餐ID 姓名 联系方式 身份证号
+   信息登记表 拥有属性
+   就餐ID 姓名 联系方式 身份证号 住址
    ----------------------- */
 @Table(database = DiningHallDB.class, allFields = true)
 public class User {
@@ -20,6 +20,8 @@ public class User {
     private String contact;
     @NotNull
     private String idNum;
+    @NotNull
+    private String address;
 
     public long getId() {
         return id;
@@ -53,4 +55,11 @@ public class User {
         this.idNum = idNum;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 }

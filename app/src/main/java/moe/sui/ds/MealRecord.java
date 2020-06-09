@@ -9,27 +9,28 @@ import java.util.Date;
 
 /* -----------------------
    就餐记录表 拥有属性
-   就餐记录Id 位置 座位号 日期
+   userId 就餐位置 座位号 日期
    ----------------------- */
 @Table(database = DiningHallDB.class, allFields = true)
 public class MealRecord {
 
-    @PrimaryKey(autoincrement = true)
-    private long recordId;
+    @PrimaryKey
+    @ForeignKey(tableClass = User.class)
+    private long userId;
 
-    @NotNull
+    @PrimaryKey
     private String position;
-    @NotNull
+    @PrimaryKey
     private String seat;
-    @NotNull
-    private Date date;
+    @PrimaryKey
+    private java.sql.Date date;
 
-    public long getRecordId() {
-        return recordId;
+    public long getUserId() {
+        return userId;
     }
 
-    public void setRecordId(long recordId) {
-        this.recordId = recordId;
+    public void setUserId(long recordId) {
+        this.userId = recordId;
     }
 
     public String getPosition() {
@@ -52,7 +53,7 @@ public class MealRecord {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(java.sql.Date date) {
         this.date = date;
     }
 }
