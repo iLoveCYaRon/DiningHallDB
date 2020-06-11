@@ -1,15 +1,16 @@
 package moe.sui.ds;
 
+import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.ForeignKey;
 import com.raizlabs.android.dbflow.annotation.NotNull;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 
-import java.util.Date;
+import java.sql.Date;
 
 /* -----------------------
-   就餐记录表 拥有属性
-   userId 就餐位置 座位号 日期
+   就餐表 拥有属性
+   就餐ID 开始时间 就餐地点 座位号 离开时间
    ----------------------- */
 @Table(database = DiningHallDB.class, allFields = true)
 public class MealRecord {
@@ -19,18 +20,31 @@ public class MealRecord {
     private long userId;
 
     @PrimaryKey
+    private java.sql.Date beginTime;
+
+    @Column
     private String position;
-    @PrimaryKey
+
+    @Column
     private String seat;
-    @PrimaryKey
-    private java.sql.Date date;
+
+    @Column
+    private java.sql.Date endTime;
 
     public long getUserId() {
         return userId;
     }
 
-    public void setUserId(long recordId) {
-        this.userId = recordId;
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
+
+    public Date getBeginTime() {
+        return beginTime;
+    }
+
+    public void setBeginTime(Date beginTime) {
+        this.beginTime = beginTime;
     }
 
     public String getPosition() {
@@ -49,11 +63,11 @@ public class MealRecord {
         this.seat = seat;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getEndTime() {
+        return endTime;
     }
 
-    public void setDate(java.sql.Date date) {
-        this.date = date;
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
     }
 }
