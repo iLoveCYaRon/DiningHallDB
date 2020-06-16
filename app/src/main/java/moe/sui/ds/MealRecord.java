@@ -10,7 +10,7 @@ import java.sql.Date;
 
 /* -----------------------
    就餐表 拥有属性
-   就餐ID 开始时间 就餐地点 座位号 离开时间
+   就餐ID 开始时间 座位ID 窗口号 离开时间
    ----------------------- */
 @Table(database = DiningHallDB.class, allFields = true)
 public class MealRecord {
@@ -22,11 +22,11 @@ public class MealRecord {
     @PrimaryKey
     private java.sql.Date beginTime;
 
-    @Column
-    private String position;
+    @ForeignKey(tableClass = Position.class)
+    private int posId;
 
-    @Column
-    private String seat;
+    @ForeignKey(tableClass = Seat.class)
+    private String seatId;
 
     @Column
     private java.sql.Date endTime;
@@ -47,27 +47,27 @@ public class MealRecord {
         this.beginTime = beginTime;
     }
 
-    public String getPosition() {
-        return position;
-    }
-
-    public void setPosition(String position) {
-        this.position = position;
-    }
-
-    public String getSeat() {
-        return seat;
-    }
-
-    public void setSeat(String seat) {
-        this.seat = seat;
-    }
-
     public Date getEndTime() {
         return endTime;
     }
 
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
+    }
+
+    public int getPosId() {
+        return posId;
+    }
+
+    public void setPosId(int posId) {
+        this.posId = posId;
+    }
+
+    public String getSeatId() {
+        return seatId;
+    }
+
+    public void setSeatId(String seatId) {
+        this.seatId = seatId;
     }
 }

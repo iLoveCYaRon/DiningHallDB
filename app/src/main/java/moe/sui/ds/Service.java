@@ -20,11 +20,11 @@ public class Service {
     @ForeignKey(tableClass = User.class)
     private long id;
 
+    @ForeignKey(tableClass = ServiceWindow.class)
+    private int serveWinId;
+
     @PrimaryKey
     private java.sql.Date beginTime;
-
-    @Column
-    private String servePos;
 
     @Column
     private java.sql.Date endTime;
@@ -37,20 +37,20 @@ public class Service {
         this.id = id;
     }
 
+    public int getServeWinId() {
+        return serveWinId;
+    }
+
+    public void setServeWinId(int serveWinId) {
+        this.serveWinId = serveWinId;
+    }
+
     public Date getBeginTime() {
         return beginTime;
     }
 
     public void setBeginTime(Date beginTime) {
         this.beginTime = beginTime;
-    }
-
-    public String getServePos() {
-        return servePos;
-    }
-
-    public void setServePos(String servePos) {
-        this.servePos = servePos;
     }
 
     public Date getEndTime() {
