@@ -12,31 +12,31 @@ import java.sql.Date;
    就餐表 拥有属性
    就餐ID 开始时间 座位ID 窗口号 离开时间
    ----------------------- */
-@Table(database = DiningHallDB.class, allFields = true)
+@Table(database = DiningHallDB.class)
 public class MealRecord {
 
+    @ForeignKey(stubbedRelationship = true)
     @PrimaryKey
-    @ForeignKey(tableClass = User.class)
-    private long userId;
+    private User uid;
 
     @PrimaryKey
     private java.sql.Date beginTime;
 
-    @ForeignKey(tableClass = Position.class)
-    private int posId;
+    @ForeignKey(stubbedRelationship = true)
+    private Position recPos;
 
-    @ForeignKey(tableClass = Seat.class)
-    private String seatId;
+    @ForeignKey(stubbedRelationship = true)
+    private Seat recSeatId;
 
     @Column
     private java.sql.Date endTime;
 
-    public long getUserId() {
-        return userId;
+    public User getUid() {
+        return uid;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setUid(User uid) {
+        this.uid = uid;
     }
 
     public Date getBeginTime() {
@@ -55,19 +55,19 @@ public class MealRecord {
         this.endTime = endTime;
     }
 
-    public int getPosId() {
-        return posId;
+    public Position getRecPos() {
+        return recPos;
     }
 
-    public void setPosId(int posId) {
-        this.posId = posId;
+    public void setRecPos(Position recPos) {
+        this.recPos = recPos;
     }
 
-    public String getSeatId() {
-        return seatId;
+    public Seat getRecSeatId() {
+        return recSeatId;
     }
 
-    public void setSeatId(String seatId) {
-        this.seatId = seatId;
+    public void setRecSeatId(Seat recSeatId) {
+        this.recSeatId = recSeatId;
     }
 }
