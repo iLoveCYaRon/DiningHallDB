@@ -5,6 +5,7 @@ import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.NotNull;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.structure.BaseModel;
 
 /* -----------------------
    所有用餐地点的信息 预先登记式
@@ -12,8 +13,8 @@ import com.raizlabs.android.dbflow.annotation.Table;
    拥有属性：地点ID 地点所在楼名称 所在楼层
    ----------------------- */
 @Table(database = DiningHallDB.class)
-public class Position {
-    @PrimaryKey
+public class Position extends BaseModel {
+    @PrimaryKey(autoincrement = true)
     private int posId;
 
     @Column

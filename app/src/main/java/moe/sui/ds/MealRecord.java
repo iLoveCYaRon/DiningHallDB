@@ -5,6 +5,7 @@ import com.raizlabs.android.dbflow.annotation.ForeignKey;
 import com.raizlabs.android.dbflow.annotation.NotNull;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import java.sql.Date;
 
@@ -13,7 +14,7 @@ import java.sql.Date;
    就餐ID 开始时间 座位ID 窗口号 离开时间
    ----------------------- */
 @Table(database = DiningHallDB.class)
-public class MealRecord {
+public class MealRecord extends BaseModel {
 
     @ForeignKey(stubbedRelationship = true)
     @PrimaryKey

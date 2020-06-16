@@ -4,10 +4,11 @@ import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.ForeignKey;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.structure.BaseModel;
 
 @Table(database = DiningHallDB.class)
-public class Seat {
-    @PrimaryKey
+public class Seat extends BaseModel {
+    @PrimaryKey(autoincrement = true)
     private long seatId;
 
     @Column
