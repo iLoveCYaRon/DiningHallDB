@@ -9,34 +9,40 @@ import com.raizlabs.android.dbflow.annotation.Table;
 import java.sql.Date;
 
 /* -----------------------
-   就餐表 拥有属性
-   就餐ID 开始时间 座位ID 窗口号 离开时间
+   服务表 记录职工的服务信息，用于追踪接触链
+   理由：职工有可能患病，职工所接触的学生也可能患病
+   拥有属性：职工ID（来自User表） 服务开始时间 地点 结束时间
    ----------------------- */
-@Table(database = DiningHallDB.class, allFields = true)
-public class MealRecord {
 
+@Table(database = DiningHallDB.class)
+public class Service {
     @PrimaryKey
     @ForeignKey(tableClass = User.class)
-    private long userId;
+    private long id;
+
+    @ForeignKey(tableClass = ServiceWindow.class)
+    private int serveWinId;
 
     @PrimaryKey
     private java.sql.Date beginTime;
 
-    @ForeignKey(tableClass = Position.class)
-    private int posId;
-
-    @ForeignKey(tableClass = Seat.class)
-    private String seatId;
-
     @Column
     private java.sql.Date endTime;
 
-    public long getUserId() {
-        return userId;
+    public long getId() {
+        return id;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public int getServeWinId() {
+        return serveWinId;
+    }
+
+    public void setServeWinId(int serveWinId) {
+        this.serveWinId = serveWinId;
     }
 
     public Date getBeginTime() {
@@ -53,21 +59,5 @@ public class MealRecord {
 
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
-    }
-
-    public int getPosId() {
-        return posId;
-    }
-
-    public void setPosId(int posId) {
-        this.posId = posId;
-    }
-
-    public String getSeatId() {
-        return seatId;
-    }
-
-    public void setSeatId(String seatId) {
-        this.seatId = seatId;
     }
 }
