@@ -5,12 +5,14 @@ import com.raizlabs.android.dbflow.annotation.NotNull;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.sql.saveable.AutoIncrementModelSaver;
+import com.raizlabs.android.dbflow.structure.BaseModel;
+
 /* -----------------------
    信息登记表 拥有属性
    就餐ID 姓名 联系方式 身份证号 住址
    ----------------------- */
 @Table(database = DiningHallDB.class, allFields = true)
-public class User {
+public class User extends BaseModel {
     //自增整型主码
     @PrimaryKey(autoincrement = true)
     private long id;
