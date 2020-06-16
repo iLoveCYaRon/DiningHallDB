@@ -1,5 +1,7 @@
 package moe.sui.ds;
 
+import android.view.Window;
+
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.ForeignKey;
 import com.raizlabs.android.dbflow.annotation.NotNull;
@@ -17,11 +19,11 @@ import java.sql.Date;
 @Table(database = DiningHallDB.class)
 public class Service {
     @PrimaryKey
-    @ForeignKey(tableClass = User.class)
-    private long id;
+    @ForeignKey(stubbedRelationship = true)
+    private User uid;
 
-    @ForeignKey(tableClass = ServiceWindow.class)
-    private int serveWinId;
+    @ForeignKey(stubbedRelationship = true)
+    private ServiceWindow serveWindow;
 
     @PrimaryKey
     private java.sql.Date beginTime;
@@ -29,20 +31,20 @@ public class Service {
     @Column
     private java.sql.Date endTime;
 
-    public long getId() {
-        return id;
+    public User getUid() {
+        return uid;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setUid(User uid) {
+        this.uid = uid;
     }
 
-    public int getServeWinId() {
-        return serveWinId;
+    public ServiceWindow getServeWindow() {
+        return serveWindow;
     }
 
-    public void setServeWinId(int serveWinId) {
-        this.serveWinId = serveWinId;
+    public void setServeWindow(ServiceWindow serveWindow) {
+        this.serveWindow = serveWindow;
     }
 
     public Date getBeginTime() {

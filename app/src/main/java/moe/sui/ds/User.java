@@ -14,13 +14,13 @@ public class User {
     //自增整型主码
     @PrimaryKey(autoincrement = true)
     private long id;
-    @NotNull
+
     private String name;
-    @NotNull
+
     private String contact;
-    @NotNull
+
     private String idNum;
-    @NotNull
+
     private String address;
 
     public long getId() {

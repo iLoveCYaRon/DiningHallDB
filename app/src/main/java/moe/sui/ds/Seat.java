@@ -16,9 +16,8 @@ public class Seat {
     @Column
     private int column;
 
-    @Column
-    @ForeignKey
-    private int seatPos;
+    @ForeignKey(stubbedRelationship = true)
+    private Position seatPos;
 
     public long getSeatId() {
         return seatId;
@@ -44,11 +43,11 @@ public class Seat {
         this.column = column;
     }
 
-    public int getSeatPos() {
+    public Position getSeatPos() {
         return seatPos;
     }
 
-    public void setSeatPos(int seatPos) {
+    public void setSeatPos(Position seatPos) {
         this.seatPos = seatPos;
     }
 }

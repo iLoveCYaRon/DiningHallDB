@@ -20,6 +20,30 @@ public class ServiceWindow {
     @Column
     private String winName;
 
-    @ForeignKey(tableClass = Position.class)
-    private int posId;
+    @ForeignKey(stubbedRelationship = true)
+    private Position windowPos;
+
+    public int getWinId() {
+        return winId;
+    }
+
+    public void setWinId(int winId) {
+        this.winId = winId;
+    }
+
+    public String getWinName() {
+        return winName;
+    }
+
+    public void setWinName(String winName) {
+        this.winName = winName;
+    }
+
+    public Position getWindowPos() {
+        return windowPos;
+    }
+
+    public void setWindowPos(Position windowPos) {
+        this.windowPos = windowPos;
+    }
 }

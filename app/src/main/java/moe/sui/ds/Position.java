@@ -17,7 +17,6 @@ public class Position {
     private int posId;
 
     @Column
-    @NotNull
     private String posName;
 
     // 楼层 大于零 相同posName的floor值唯一
