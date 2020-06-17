@@ -13,6 +13,8 @@ import com.raizlabs.android.dbflow.sql.language.SQLite;
 import java.sql.Date;
 import java.util.List;
 
+import moe.sui.dbcontrol.SeatController;
+import moe.sui.dbcontrol.UserController;
 import moe.sui.ds.MealRecord;
 import moe.sui.ds.Position;
 import moe.sui.ds.Position_Table;
@@ -94,7 +96,10 @@ public class MainActivity extends AppCompatActivity {
         record.setUid(SQLite.select().from(User.class).where(User_Table.name.eq("用户1")).querySingle());
         record.setRecPos(position);
         record.setRecSeatId(SQLite.select().from(Seat.class).where(Seat_Table.seatPos_posId.eq(position.getPosId()),Seat_Table.row.eq(1),Seat_Table.column.eq(1)).querySingle());
+        record.setEndTime(new Date(-1));
         record.save();
+
+        SeatController.getAvailableSeat();
 
     }
 
