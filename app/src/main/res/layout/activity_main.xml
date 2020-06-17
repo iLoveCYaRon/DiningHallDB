@@ -29,19 +29,37 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_below="@id/ll_line1">
+
+        <EditText
+            android:id="@+id/login_pswd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="密码在搞了，随便输"
+            android:inputType="textPassword" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_line3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/ll_line2">
         <Button
             android:id="@+id/button_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="登录">
+            android:text="登录"
+            android:onClick="tryLogin">
         </Button>
         <Button
             android:id="@+id/button_regis"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="注册">
+            android:text="注册"
+            android:onClick="toRegister">
         </Button>
-
 
     </LinearLayout>
 

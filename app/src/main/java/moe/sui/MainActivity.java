@@ -2,12 +2,14 @@ package moe.sui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.util.Log;
+import android.widget.Toast;
 
 
 import com.raizlabs.android.dbflow.config.FlowManager;
@@ -29,6 +31,7 @@ import moe.sui.ds.Service;
 import moe.sui.ds.ServiceWindow;
 import moe.sui.ds.User;
 import moe.sui.ds.User_Table;
+import moe.sui.uicontrol.UserAct;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -38,23 +41,25 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button button = (Button) this.findViewById(R.id.button_login);
-        button.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                EditText phone_num =(EditText)findViewById (R.id.phone_num);
-                String c=phone_num.getText().toString();
-
-                if(moe.sui.dbcontrol.UserController.validator(c)) {
-                    setContentView(R.layout.logined_layout);
-                }
-            }
-        });
-
         databaseReset();
         databaseInit();
     }
-
+    public void toRegister(View v){
+        Intent intent =new Intent(this,RegisterActivity.class);
+        startActivity(intent);
+    }
+    public void tryLogin(View v){
+        EditText phone_num =(EditText)findViewById (R.id.phone_num);
+        String validator=phone_num.getText().toString();
+        if(moe.sui.dbcontrol.UserController.validator(validator)) {
+            Intent intent =new Intent(this,LoginedActivity.class);
+            startActivity(intent);
+            Toast.makeText(MainActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            Toast.makeText(MainActivity.this, "登录失败，请检查填写信息", Toast.LENGTH_SHORT).show();
+        }
+    }
     // 清空数据库
     private void databaseReset() {
         Delete.table(MealRecord.class);
