@@ -4,6 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.util.Log;
+
 
 import com.raizlabs.android.dbflow.config.FlowManager;
 import com.raizlabs.android.dbflow.sql.language.Delete;
@@ -33,6 +38,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Button button = (Button) this.findViewById(R.id.button_login);
+        button.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                EditText phone_num =(EditText)findViewById (R.id.phone_num);
+                String c=phone_num.getText().toString();
+
+                if(moe.sui.dbcontrol.UserController.validator(c)) {
+                    setContentView(R.layout.logined_layout);
+                }
+            }
+        });
+
         databaseReset();
         databaseInit();
     }
@@ -58,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
         for(int i=0; i<10; i++) {
             User user = new User();
             user.setName("用户" + i);
+            user.setContact("1000"+i);
             user.save();
         }
 
