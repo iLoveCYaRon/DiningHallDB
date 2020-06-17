@@ -4,10 +4,11 @@ import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.ForeignKey;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.structure.BaseModel;
 
 @Table(database = DiningHallDB.class)
-public class Seat {
-    @PrimaryKey
+public class Seat extends BaseModel {
+    @PrimaryKey(autoincrement = true)
     private long seatId;
 
     @Column
@@ -16,9 +17,8 @@ public class Seat {
     @Column
     private int column;
 
-    @Column
-    @ForeignKey
-    private int seatPos;
+    @ForeignKey(stubbedRelationship = true)
+    private Position seatPos;
 
     public long getSeatId() {
         return seatId;
@@ -44,11 +44,11 @@ public class Seat {
         this.column = column;
     }
 
-    public int getSeatPos() {
+    public Position getSeatPos() {
         return seatPos;
     }
 
-    public void setSeatPos(int seatPos) {
+    public void setSeatPos(Position seatPos) {
         this.seatPos = seatPos;
     }
 }

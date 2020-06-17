@@ -4,6 +4,7 @@ import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.ForeignKey;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.structure.BaseModel;
 
 /* -----------------------
    窗口表 所有食堂窗口的信息 预先登记式
@@ -12,14 +13,38 @@ import com.raizlabs.android.dbflow.annotation.Table;
    ----------------------- */
 
 @Table(database = DiningHallDB.class)
-public class ServiceWindow {
+public class ServiceWindow extends BaseModel {
 
-    @PrimaryKey
+    @PrimaryKey(autoincrement = true)
     private int winId;
 
     @Column
     private String winName;
 
-    @ForeignKey(tableClass = Position.class)
-    private int posId;
+    @ForeignKey(stubbedRelationship = true)
+    private Position windowPos;
+
+    public int getWinId() {
+        return winId;
+    }
+
+    public void setWinId(int winId) {
+        this.winId = winId;
+    }
+
+    public String getWinName() {
+        return winName;
+    }
+
+    public void setWinName(String winName) {
+        this.winName = winName;
+    }
+
+    public Position getWindowPos() {
+        return windowPos;
+    }
+
+    public void setWindowPos(Position windowPos) {
+        this.windowPos = windowPos;
+    }
 }

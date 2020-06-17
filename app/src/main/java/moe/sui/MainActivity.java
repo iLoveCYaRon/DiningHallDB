@@ -3,12 +3,12 @@ package moe.sui;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-<<<<<<< Updated upstream
-=======
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.util.Log;
+
 
 import com.raizlabs.android.dbflow.config.FlowManager;
 import com.raizlabs.android.dbflow.sql.language.Delete;
@@ -29,16 +29,15 @@ import moe.sui.ds.Service;
 import moe.sui.ds.ServiceWindow;
 import moe.sui.ds.User;
 import moe.sui.ds.User_Table;
->>>>>>> Stashed changes
 
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-<<<<<<< Updated upstream
-=======
+
         Button button = (Button) this.findViewById(R.id.button_login);
         button.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -121,6 +120,6 @@ public class MainActivity extends AppCompatActivity {
 
         SeatController.getAvailableSeat();
 
->>>>>>> Stashed changes
     }
+
 }
