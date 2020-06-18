@@ -55,7 +55,9 @@ public class MainActivity extends AppCompatActivity {
         databaseInit();
     }
 
-    // 清空数据库
+    /**
+     * 清除数据库表数据
+     */
     private void databaseReset() {
         Delete.table(MealRecord.class);
 
@@ -70,7 +72,9 @@ public class MainActivity extends AppCompatActivity {
         Delete.table(User.class);
     }
 
-    // 插入示例数据
+    /**
+     * 插入示例数据
+     */
     private void databaseInit() {
         // 插入10个用户
         for(int i=0; i<10; i++) {

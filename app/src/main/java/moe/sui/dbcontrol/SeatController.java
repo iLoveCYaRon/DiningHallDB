@@ -11,9 +11,18 @@ import moe.sui.ds.MealRecord_Table;
 import moe.sui.ds.Seat;
 import moe.sui.ds.Seat_Table;
 
+/**
+ * 座位控制器类，负责
+ * @author Kotori
+ * @time 2020/06/18 17:14
+ */
 
 public class SeatController {
-    // 获取所有空座位
+
+    /**
+     *
+     * @return 返回空座位列表
+     */
     public static List<Seat> getAvailableSeat() {
         List<MealRecord> recordList = SQLite.select()
                                     .from(MealRecord.class)
@@ -37,7 +46,6 @@ public class SeatController {
                 seatList.remove(seatIdList.indexOf(busySeatId));
             }
         }
-
 
         return seatList;
     }
