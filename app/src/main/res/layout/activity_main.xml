@@ -18,7 +18,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="输入宁的手机号"
+            android:hint="输入手机号"
             android:inputType="phone" />
 
     </LinearLayout>
@@ -35,7 +35,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="密码在搞了，随便输"
+            android:hint="登录密码"
             android:inputType="textPassword" />
 
     </LinearLayout>

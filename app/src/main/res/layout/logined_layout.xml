@@ -6,9 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".LoginedActivity">
 
-    //line1姓名
+    //line1食堂
     <LinearLayout
-        android:id="@+id/rl_line1"
+        android:id="@+id/lo_l_line1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -17,80 +17,64 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="输入您的姓名" />
+            android:hint="选择您所在的食堂" />
     </LinearLayout>
-    //line2电话号码
+    //line2楼层
     <LinearLayout
-        android:id="@+id/rl_line2"
+        android:id="@+id/lo_l_line2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_below="@id/rl_line1">
+        android:layout_below="@id/lo_l_line1">
         <EditText
             android:id="@+id/regis_phone"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:inputType="phone"
-            android:hint="输入您的电话" />
+            android:hint="选择您的楼层" />
     </LinearLayout>
-    //line3地址
+    //line3窗口号
     <LinearLayout
-        android:id="@+id/rl_line3"
+        android:id="@+id/lo_l_line3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_below="@id/rl_line2">
+        android:layout_below="@id/lo_l_line2">
         <EditText
             android:id="@+id/regis_address"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="输入您的地址" />
+            android:hint="服务窗口" />
     </LinearLayout>
-    //line4密码
+    //line4座位号
     <LinearLayout
-        android:id="@+id/rl_line4"
+        android:id="@+id/lo_l_line4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_below="@id/rl_line3">
+        android:layout_below="@id/lo_l_line3">
         <EditText
             android:id="@+id/regis_pswd"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="输入您的密码（未实装）"
-            android:inputType="textPassword" />
+            android:hint="选择您的用餐座位号" />
     </LinearLayout>
-    //line5确认密码
+    //line5提交键
     <LinearLayout
-        android:id="@+id/rl_line5"
+        android:id="@+id/lo_l_line5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_below="@id/rl_line4">
-        <EditText
-            android:id="@+id/regis_pswd_configure"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="再次您的密码（未实装）"
-            android:inputType="textPassword" />
-    </LinearLayout>
-    //line6注册键
-    <LinearLayout
-        android:id="@+id/rl_line6"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@id/rl_line5">
+        android:layout_below="@id/lo_l_line4">
 
         <Button
             android:id="@+id/regis_regis"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="注册">
+            android:text="提交">
         </Button>
     </LinearLayout>
 
