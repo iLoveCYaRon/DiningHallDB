@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         databaseReset();
         databaseInit();
     }
+
     public void toRegister(View v){
         Intent intent =new Intent(this,RegisterActivity.class);
         startActivity(intent);
@@ -60,7 +61,10 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this, "登录失败，请检查填写信息", Toast.LENGTH_SHORT).show();
         }
     }
-    // 清空数据库
+
+    /**
+     * 清除数据库表数据
+     */
     private void databaseReset() {
         Delete.table(MealRecord.class);
 
@@ -75,7 +79,9 @@ public class MainActivity extends AppCompatActivity {
         Delete.table(User.class);
     }
 
-    // 插入示例数据
+    /**
+     * 插入示例数据
+     */
     private void databaseInit() {
         // 插入10个用户
         for(int i=0; i<10; i++) {

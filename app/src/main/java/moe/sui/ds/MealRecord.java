@@ -9,10 +9,10 @@ import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import java.sql.Date;
 
-/* -----------------------
-   就餐表 拥有属性
-   就餐ID 开始时间 座位ID 窗口号 离开时间
-   ----------------------- */
+/*
+ * 就餐表 拥有属性
+ * 就餐ID 开始时间 座位ID 窗口号 离开时间
+ */
 @Table(database = DiningHallDB.class)
 public class MealRecord extends BaseModel {
 
