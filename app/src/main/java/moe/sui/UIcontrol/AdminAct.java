@@ -1,4 +1,4 @@
-package moe.sui.UIcontrol;
+package moe.sui.uicontrol;
 
 public class AdminAct {
     public AdminAct(){}
