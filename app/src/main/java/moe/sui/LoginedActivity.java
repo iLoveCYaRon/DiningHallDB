@@ -10,7 +10,7 @@ public class LoginedActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.logined_layout);
+        setContentView(R.layout.activity_logined);
 
         Intent intent = getIntent();
     }

@@ -1,70 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:orientation="vertical">
 
-
-    <LinearLayout
-        android:id="@+id/ll_line1"
+     <TextView
+        android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_margin="15dp"
+        android:text="登录到食堂管理系统"
+        android:textAlignment="center"
+        android:textColor="@color/colorText"
+        android:textSize="22sp" />
 
-        <EditText
-            android:id="@+id/phone_num"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="输入手机号"
-            android:inputType="phone" />
+    <EditText
+        android:id="@+id/sql_addr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="第一次使用请输入数据库IP地址"
+        android:layout_margin="5dp"
+        />
 
-    </LinearLayout>
+    <EditText
+        android:id="@+id/sql_port"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="端口号"
+        android:layout_margin="5dp"
+        android:inputType="numberDecimal" />
+
+    <EditText
+        android:id="@+id/phone_num"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="10001"
+        android:hint="手机号"
+        android:inputType="phone" />
+
+    <EditText
+        android:id="@+id/login_pswd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:autofillHints="密码"
+        android:hints="密码"
+        android:inputType="textPassword" />
 
     <LinearLayout
-        android:id="@+id/ll_line2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_below="@id/ll_line1">
+        android:gravity="center_horizontal">
 
-        <EditText
-            android:id="@+id/login_pswd"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="登录密码"
-            android:inputType="textPassword" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/ll_line3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@id/ll_line2">
-        <Button
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
             android:id="@+id/button_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="tryLogin"
+            android:paddingStart="20dp"
+            android:paddingTop="6dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="6dp"
             android:text="登录"
-            android:onClick="tryLogin">
-        </Button>
-        <Button
+            android:textColor="@color/colorBackground"
+            app:qmui_backgroundColor="@color/colorPrimary"
+            app:qmui_borderColor="#00FFFFFF" />
+
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
             android:id="@+id/button_regis"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:onClick="toRegister"
+            android:paddingStart="20dp"
+            android:paddingTop="6dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="6dp"
             android:text="注册"
-            android:onClick="toRegister">
-        </Button>
-
+            android:textColor="@color/colorPrimary"
+            app:qmui_borderColor="@color/colorPrimary" />
     </LinearLayout>
 
-
-
-
-
-</RelativeLayout>
+</LinearLayout>
