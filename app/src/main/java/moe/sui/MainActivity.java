@@ -2,6 +2,7 @@ package moe.sui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +13,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 
+import com.qmuiteam.qmui.layout.QMUIButton;
+import com.qmuiteam.qmui.widget.QMUITopBar;
 import com.raizlabs.android.dbflow.config.FlowManager;
 import com.raizlabs.android.dbflow.sql.language.Delete;
 import com.raizlabs.android.dbflow.sql.language.SQLOperator;
@@ -41,26 +44,28 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        databaseReset();
-        databaseInit();
+//        databaseReset();
+//        databaseInit();
+
+        initTopBar();
     }
 
-    public void toRegister(View v){
-        Intent intent =new Intent(this,RegisterActivity.class);
-        startActivity(intent);
-    }
-    public void tryLogin(View v){
-        EditText phone_num =(EditText)findViewById (R.id.phone_num);
-        String validator=phone_num.getText().toString();
-        if(moe.sui.dbcontrol.UserController.validator(validator)) {
-            Intent intent =new Intent(this,LoginedActivity.class);
-            startActivity(intent);
-            Toast.makeText(MainActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
-        }
-        else{
-            Toast.makeText(MainActivity.this, "登录失败，请检查填写信息", Toast.LENGTH_SHORT).show();
-        }
-    }
+//    public void toRegister(View v){
+//        Intent intent =new Intent(this,RegisterActivity.class);
+//        startActivity(intent);
+//    }
+//    public void tryLogin(View v){
+//        EditText phone_num =(EditText)findViewById (R.id.phone_num);
+//        String validator=phone_num.getText().toString();
+//        if(moe.sui.dbcontrol.UserController.validator(validator)) {
+//            Intent intent =new Intent(this,LoginedActivity.class);
+//            startActivity(intent);
+//            Toast.makeText(MainActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+//        }
+//        else{
+//            Toast.makeText(MainActivity.this, "登录失败，请检查填写信息", Toast.LENGTH_SHORT).show();
+//        }
+//    }
 
     /**
      * 清除数据库表数据
@@ -133,4 +138,17 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @SuppressLint("ResourceAsColor")
+    void initTopBar() {
+        QMUITopBar topBar = findViewById(R.id.topbar_main);
+        topBar.setTitle("主界面");
+        Button leftButton = topBar.addLeftTextButton("登录", R.id.empty_view_button);
+        leftButton.setTextColor(R.color.colorBackground);
+        leftButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getBaseContext(), AccManageActivity.class));
+            }
+        });
+    }
 }

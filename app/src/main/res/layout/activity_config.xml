@@ -13,7 +13,7 @@
         tools:context="moe.sui.ConfigActivity">
 
         <com.qmuiteam.qmui.widget.QMUITopBar
-            android:id="@+id/ConfigTopBar"
+            android:id="@+id/topbar_config"
             style="@style/GeneralTopBarStyle"
         />
 
