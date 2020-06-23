@@ -140,11 +140,6 @@ public class MainActivity extends AppCompatActivity {
         topBar.setTitle("主界面");
         Button leftButton = topBar.addLeftTextButton("登录", R.id.empty_view_button);
         leftButton.setTextColor(R.color.colorBackground);
-        leftButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getBaseContext(), AccManageActivity.class));
-            }
-        });
+        leftButton.setOnClickListener(v -> startActivity(new Intent(getBaseContext(), AccManageActivity.class)));
     }
 }
