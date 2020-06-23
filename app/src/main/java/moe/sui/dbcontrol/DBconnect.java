@@ -9,12 +9,13 @@ import java.sql.ResultSet;
 public class DBconnect {
     private static final String driver = "com.mysql.jdbc.Driver";
     private static final String url = "jdbc:mysql://192.168.56.133:3306/test1?useSSL=false&serverTimezone=GMT";
-    //private static final String url = "jdbc:mysql://云端公网ip:3306/数据库名称";
+    //private static final String url = "jdbc:mysql://192.168.56.133:3306/test1";
     private static final String user = "testcus";
     private static final String pwd = "88888888";
+    public static Connection conn;
 
     public static void linkMysql() {
-        Connection conn=null;
+//        Connection conn=null;
         PreparedStatement stmt=null;
         try {
             Class.forName(driver).newInstance();
@@ -26,7 +27,7 @@ public class DBconnect {
         try{
             conn = DriverManager.getConnection(url,user,pwd);
             System.out.println("连接数据库成功！！！！！！");
-            String sql = "select * from user";
+            String sql = "select * from user";//查询语句
             stmt= conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
 
