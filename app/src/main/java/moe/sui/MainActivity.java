@@ -4,24 +4,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.util.Log;
 import android.widget.Toast;
 
 
-import com.raizlabs.android.dbflow.config.FlowManager;
 import com.raizlabs.android.dbflow.sql.language.Delete;
-import com.raizlabs.android.dbflow.sql.language.SQLOperator;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
 import java.sql.Date;
-import java.util.List;
 
+import moe.sui.dbcontrol.DBconnect;
 import moe.sui.dbcontrol.SeatController;
-import moe.sui.dbcontrol.UserController;
 import moe.sui.ds.MealRecord;
 import moe.sui.ds.Position;
 import moe.sui.ds.Position_Table;
@@ -31,7 +25,6 @@ import moe.sui.ds.Service;
 import moe.sui.ds.ServiceWindow;
 import moe.sui.ds.User;
 import moe.sui.ds.User_Table;
-import moe.sui.uicontrol.UserAct;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -40,9 +33,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        databaseReset();
-        databaseInit();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                DBconnect.linkMysql();
+            }
+        }).start();
+        //databaseReset();
+        //databaseInit();
     }
 
     public void toRegister(View v){
