@@ -56,6 +56,7 @@ public class ConfigActivity extends AppCompatActivity {
         //设置顶栏样式
         QMUITopBar topBar = findViewById(R.id.topbar_config);
         topBar.setTitle("食堂管理系统");
+        //暂时提供右上角主界面临时入口
         topBar.addRightTextButton("主界面", R.id.empty_view_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,23 +68,18 @@ public class ConfigActivity extends AppCompatActivity {
         readConfig();
         //绑定按钮点击事件
         QMUIRoundButton button = findViewById(R.id.btn_saveConfig);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveConfig();
-                SharedPreferences pref = getSharedPreferences("sqlConfig", MODE_PRIVATE);
-                String sqlAddr = pref.getString("sqlAddr", null);
-                String sqlPort = pref.getString("sqlPort", null);
-                String sqlUsername = pref.getString("sqlUsername", null);
-                String sqlPassword = pref.getString("sqlPassword", null);
-                if (sqlAddr!=null&&sqlPort!=null&&sqlPassword!=null&&sqlUsername!=null) {
-                    //调用连接方法
-                    String sqlURL = sqlAddr + ":" + sqlPort;
-                } else {
-                    Toast.makeText(getApplicationContext(), "数据库配置不完整", Toast.LENGTH_SHORT).show();
-                }
-
-
+        button.setOnClickListener(v -> {
+            saveConfig();
+            SharedPreferences pref = getSharedPreferences("sqlConfig", MODE_PRIVATE);
+            String sqlAddr = pref.getString("sqlAddr", null);
+            String sqlPort = pref.getString("sqlPort", null);
+            String sqlUsername = pref.getString("sqlUsername", null);
+            String sqlPassword = pref.getString("sqlPassword", null);
+            if (sqlAddr!=null&&sqlPort!=null&&sqlPassword!=null&&sqlUsername!=null) {
+                //调用连接方法
+                String sqlURL = sqlAddr + ":" + sqlPort;
+            } else {
+                Toast.makeText(getApplicationContext(), "数据库配置不完整", Toast.LENGTH_SHORT).show();
             }
         });
     }

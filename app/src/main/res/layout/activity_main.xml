@@ -8,8 +8,70 @@
 
     <com.qmuiteam.qmui.widget.QMUITopBar
         android:id="@+id/topbar_main"
-        style="@style/GeneralTopBarStyle" />
+        style="@style/GeneralTopBarStyle">
 
+    </com.qmuiteam.qmui.widget.QMUITopBar>
+
+    <TextView
+        android:id="@+id/text_userInfo"
+        style="@style/GeneralEditTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="10dp"
+        android:text="UID\n这里会显示用户信息" />
+
+    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+        android:id="@+id/btn_addMealRecord"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginHorizontal="8dp"
+        android:background="@color/colorAccent"
+        android:scaleType="centerCrop"
+        android:text="上报就餐记录"
+        android:textColor="@color/colorBackground"
+        android:textSize="24dp"
+        android:textStyle="bold"
+        app:qmui_backgroundColor="#3BA8FF"
+        app:qmui_borderColor="@color/colorAlphaBackground"
+        app:qmui_radius="15dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="8dp">
+
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+            android:id="@+id/btn_viewTraffic"
+            android:layout_width="250dp"
+            android:layout_height="80dp"
+            android:layout_marginEnd="8dp"
+            android:background="@color/colorAccent"
+            android:scaleType="centerCrop"
+            android:text="查看各地点人流情况"
+            android:textColor="@color/colorBackground"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:qmui_backgroundColor="#3BBA78"
+            app:qmui_borderColor="@color/colorAlphaBackground"
+            app:qmui_radius="15dp" />
+
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+            android:id="@+id/btn_addServiceRecord"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@color/colorAccent"
+            android:scaleType="centerCrop"
+            android:text="职工入口"
+            android:textColor="@color/colorBackground"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:qmui_backgroundColor="#4D0A71"
+            app:qmui_borderColor="@color/colorAlphaBackground"
+            app:qmui_radius="15dp" />
+
+    </LinearLayout>
 
 
 </LinearLayout>
