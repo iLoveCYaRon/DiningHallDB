@@ -22,9 +22,9 @@ public class UserController {
      * @return 当手机号存在时返回值为真
      */
     //注册
-    public static int Register(String name,String contact,String idNum,String address,String password)throws Exception{
-        if(IsContactExist(contact)){ return -2; }//手机号重复
-        if(IsIdNumExist(idNum))
+    public static int register(String name,String contact,String idNum,String address,String password)throws Exception{
+        if(isContactExist(contact)){ return -2; }//手机号重复
+        if(isIdNumExist(idNum))
         {
             if(idNum.length()==18) return -3;//身份证号重复
             else if(idNum.length()==12) return -4;//学号重复
@@ -45,12 +45,12 @@ public class UserController {
         else return -1;
     }
     //使用手机号登录
-    public static int ContactLogin(String contact,String password) throws Exception {
+    public static int contactLogin(String contact,String password) throws Exception {
         Connection connection=DBconnect.getConnection();
         Statement statement = connection.createStatement();
-        String IsPwdTrue_sql = "select userID from User where contact="+contact+" and password="+ password;
+        String IsPwdTrue_sql = "select userId from User where contact="+contact+" and password="+ password;
         ResultSet resultSet;
-        if(!IsContactExist(contact)) {System.out.println("登录失败，用户不存在");return -2;}
+        if(!isContactExist(contact)) {System.out.println("登录失败，用户不存在");return -2;}
         else{
             resultSet = statement.executeQuery(IsPwdTrue_sql);
             if(!resultSet.next()) {System.out.println("登录失败，密码错误");return -3;}
@@ -64,12 +64,12 @@ public class UserController {
         }
     }
     //使用UID登录
-    public static int UIDLogin(String UID,String password) throws Exception {
+    public static int uIDLogin(String UID,String password) throws Exception {
         Connection connection=DBconnect.getConnection();
         Statement statement = connection.createStatement();
-        String IsPwdTrue_sql = "select userID from User where UID="+UID+" and password="+ password;
+        String IsPwdTrue_sql = "select userId from User where userId="+UID+" and password="+ password;
         ResultSet resultSet;
-        if(!IsUIDExist(UID)) {System.out.println("登录失败，用户不存在");return -2;}
+        if(!isUIDExist(UID)) {System.out.println("登录失败，用户不存在");return -2;}
         else{
             resultSet = statement.executeQuery(IsPwdTrue_sql);
             if(!resultSet.next()) {System.out.println("登录失败，密码错误");return -3;}
@@ -84,7 +84,7 @@ public class UserController {
     }
 
     //检测手机号是否存在
-    public static boolean IsContactExist(String contact) throws Exception {
+    public static boolean isContactExist(String contact) throws Exception {
         Connection connection=DBconnect.getConnection();
         Statement statement = connection.createStatement();
         String sql = "select * from User where contact="+contact;
@@ -94,7 +94,7 @@ public class UserController {
         else return false;
     }
 
-    public static boolean IsUIDExist(String UID)throws Exception{
+    public static boolean isUIDExist(String UID)throws Exception{
         Connection connection=DBconnect.getConnection();
         Statement statement = connection.createStatement();
         String sql = "select * from User where userId="+UID;
@@ -105,7 +105,7 @@ public class UserController {
     }
 
 
-    public static boolean IsIdNumExist(String id) throws Exception{
+    public static boolean isIdNumExist(String id) throws Exception{
 
         Connection connection=DBconnect.getConnection();
         Statement statement = connection.createStatement();
