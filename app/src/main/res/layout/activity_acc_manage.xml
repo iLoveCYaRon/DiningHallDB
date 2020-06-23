@@ -10,8 +10,15 @@
         android:id="@+id/topbar_acc_manage"
         style="@style/GeneralTopBarStyle" />
 
+    <TextView
+        style="@style/GeneralEditTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="登录以使用全部功能" />
+
     <EditText
-        android:id="@+id/username"
+        android:id="@+id/login_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
@@ -26,39 +33,74 @@
         android:hint="密码"
         android:inputType="textPassword" />
 
-    <LinearLayout
+    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+        android:id="@+id/button_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:paddingStart="100dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="100dp"
+        android:paddingBottom="8dp"
+        android:layout_marginBottom="10dp"
+        android:text="登录"
+        android:textColor="@color/colorBackground"
+        app:qmui_backgroundColor="@color/colorPrimary"
+        app:qmui_borderColor="#00FFFFFF" />
+
+    <TextView
+        style="@style/GeneralEditTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_horizontal">
+        android:padding="10dp"
+        android:textColor="@color/colorTextGrey"
+        android:textSize="14sp"
+        android:text="没有账号？现在注册一个" />
 
-        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
-            android:id="@+id/button_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="tryLogin"
-            android:paddingStart="20dp"
-            android:paddingTop="6dp"
-            android:paddingEnd="20dp"
-            android:paddingBottom="6dp"
-            android:text="登录"
-            android:textColor="@color/colorBackground"
-            app:qmui_backgroundColor="@color/colorPrimary"
-            app:qmui_borderColor="#00FFFFFF" />
+    <EditText
+        android:id="@+id/regis_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:hint="手机号（必填）"
+        android:inputType="phone" />
 
-        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
-            android:id="@+id/button_regis"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:onClick="toRegister"
-            android:paddingStart="20dp"
-            android:paddingTop="6dp"
-            android:paddingEnd="20dp"
-            android:paddingBottom="6dp"
-            android:text="注册"
-            android:textColor="@color/colorPrimary"
-            app:qmui_borderColor="@color/colorPrimary" />
-    </LinearLayout>
+    <EditText
+        android:id="@+id/regis_pswd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:hint="密码（必填）"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/regis_pswd_re"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:hint="再次输入确认密码"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/login_pswd_re"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:hint="学号/身份证号（可选）"
+        android:inputType="numberDecimal" />
+
+    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+        android:id="@+id/button_regis"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:paddingStart="100dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="100dp"
+        android:paddingBottom="8dp"
+        android:layout_marginBottom="10dp"
+        android:text="注册"
+        android:textColor="@color/colorPrimary" />
+
 
 </LinearLayout>
