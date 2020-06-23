@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.qmuiteam.qmui.widget.QMUIWindowInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="moe.sui.ConfigActivity">
+
+        <com.qmuiteam.qmui.widget.QMUITopBar
+            android:id="@+id/topbar_config"
+            style="@style/GeneralTopBarStyle"
+        />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:text="连接到数据库"
+            android:textAlignment="center"
+            android:textColor="@color/colorText"
+            android:textSize="22sp" />
+
+        <EditText
+            android:id="@+id/sql_addr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="第一次使用请输入数据库IP地址"
+            android:layout_margin="5dp"
+            />
+
+        <EditText
+            android:id="@+id/sql_port"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="端口号"
+            android:layout_margin="5dp"
+             />
+
+        <EditText
+            android:id="@+id/sql_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:hint="数据库用户名"
+            android:inputType="phone" />
+
+        <EditText
+            android:id="@+id/sql_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:hint="数据库密码"
+            android:inputType="textPassword" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+
+            <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+                android:id="@+id/btn_saveConfig"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="20dp"
+                android:paddingTop="6dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="6dp"
+                android:text="保存"
+                android:textColor="@color/colorBackground"
+                app:qmui_backgroundColor="@color/colorPrimary"
+                app:qmui_borderColor="#00FFFFFF" />
+
+            <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+                android:id="@+id/btn_testConn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:paddingStart="20dp"
+                android:paddingTop="6dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="6dp"
+                android:text="测试连接"
+                android:textColor="@color/colorPrimary"
+                app:qmui_borderColor="@color/colorPrimary" />
+        </LinearLayout>
+    </LinearLayout>
+
+</com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>
+
+
+
