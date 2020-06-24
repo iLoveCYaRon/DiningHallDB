@@ -54,6 +54,59 @@
         android:textSize="20sp"
         android:layout_marginBottom="5dp" />
 
-    
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
+
+        <EditText
+            android:id="@+id/record_row"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            style="@style/GeneralEditTextStyle"
+            android:background="#FFFFFF"
+            android:inputType="numberDecimal"
+            android:text="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/GeneralEditTextStyle"
+            android:text="行" />
+
+        <EditText
+            android:id="@+id/record_column"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            style="@style/GeneralEditTextStyle"
+            android:background="#FFFFFF"
+            android:inputType="numberDecimal"
+            android:text="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/GeneralEditTextStyle"
+            android:text="列" />
+
+    </TableRow>
+
+    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+        android:id="@+id/btn_addMealRecord"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="16dp"
+        android:background="@color/colorAccent"
+        android:scaleType="centerCrop"
+        android:text="提交"
+        android:textColor="@color/colorBackground"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:qmui_backgroundColor="#3BA8FF"
+        app:qmui_borderColor="@color/colorAlphaBackground"
+        app:qmui_radius="12dp" />
+
+
 
 </LinearLayout>
