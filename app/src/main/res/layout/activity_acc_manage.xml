@@ -34,7 +34,7 @@
         android:inputType="textPassword" />
 
     <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
-        android:id="@+id/button_login"
+        android:id="@+id/btn_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -58,12 +58,19 @@
         android:text="没有账号？现在注册一个" />
 
     <EditText
-        android:id="@+id/regis_username"
+        android:id="@+id/regis_contact"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:hint="手机号（必填）"
         android:inputType="phone" />
+
+    <EditText
+        android:id="@+id/regis_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:hint="姓名（必填）" />
 
     <EditText
         android:id="@+id/regis_pswd"
@@ -90,7 +97,7 @@
         android:inputType="numberDecimal" />
 
     <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
-        android:id="@+id/button_regis"
+        android:id="@+id/btn_regis"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
