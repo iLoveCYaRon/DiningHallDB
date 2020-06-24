@@ -143,6 +143,15 @@ public class MainActivity extends AppCompatActivity {
         topBar.setTitle("主界面");
         Button leftButton = topBar.addLeftTextButton("登录", R.id.empty_view_button);
         leftButton.setTextColor(R.color.colorBackground);
-        leftButton.setOnClickListener(v -> startActivity(new Intent(getBaseContext(), AccManageActivity.class)));
+        leftButton.setOnClickListener(v -> {
+            if(getSharedPreferences("account", MODE_PRIVATE).getBoolean("status", false)) {
+                startActivity(new Intent(getApplicationContext(), AccManageActivity.class));
+            } else {
+                Toast.makeText(getApplicationContext(), "您已成功登录过，无需再次登录", Toast.LENGTH_SHORT).show();
+                // 启动个人信息页 可在个人信息页退出登录
+                startActivity(new Intent(getApplicationContext(), AccManageActivity.class));
+            }
+        });
+
     }
 }
