@@ -17,7 +17,7 @@ public class DBconnect {
     private static String url=null;
     private static String user=null;
     private static String pwd=null;
-    private static final String databaseName ="dininghall";
+    private static final String databaseName ="/dininghall";
     private static final String SSLTZ ="?useSSL=false&serverTimezone=GMT";
 
     public static void setDBLink(String ip_port,String db_login_usrname,String db_login_pwd) {

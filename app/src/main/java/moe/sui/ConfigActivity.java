@@ -16,13 +16,26 @@ import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 import java.util.HashSet;
 import java.util.Set;
 
+import moe.sui.dbcontrol.DBconnect;
+import moe.sui.dbcontrol.UserController;
+
 public class ConfigActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_config);
-
+        new Thread(new Runnable() {//测试
+            @Override
+            public void run() {
+                DBconnect.setDBLink("192.168.56.133:3306","user","password");
+                try {
+                    System.out.println(UserController.Register("xx","17012345678","4455522","rwasdwa","88888888"));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();//测试
         initUI();
     }
 

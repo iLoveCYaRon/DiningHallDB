@@ -20,6 +20,7 @@ import java.sql.Date;
 
 import moe.sui.dbcontrol.DBconnect;
 import moe.sui.dbcontrol.SeatController;
+import moe.sui.dbcontrol.UserController;
 import moe.sui.ds.MealRecord;
 import moe.sui.ds.Position;
 import moe.sui.ds.Position_Table;
@@ -36,11 +37,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_main);
         new Thread(new Runnable() {
             @Override
             public void run() {
-                DBconnect.linkMysql();
+
             }
         }).start();
         initTopBar();
