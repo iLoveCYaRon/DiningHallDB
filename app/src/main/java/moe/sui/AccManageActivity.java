@@ -55,6 +55,7 @@ public class AccManageActivity extends AppCompatActivity {
         mLoginUsername.setText(pref.getString("username", ""));
         mLoginPassword.setText(pref.getString("password", ""));
 
+        //检查登录态
         login();
     }
 

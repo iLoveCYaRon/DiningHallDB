@@ -18,6 +18,8 @@ import com.raizlabs.android.dbflow.sql.language.SQLite;
 
 import java.sql.Date;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import moe.sui.dbcontrol.DBconnect;
 import moe.sui.dbcontrol.SeatController;
 import moe.sui.dbcontrol.UserController;
@@ -37,15 +39,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
         setContentView(R.layout.activity_main);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
 
-            }
-        }).start();
+        ButterKnife.bind(this);
         initTopBar();
     }
 
@@ -152,6 +148,9 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), AccManageActivity.class));
             }
         });
+    }
 
+    @OnClick(R.id.btn_addMealRecord) void toRecordActivity() {
+        startActivity(new Intent(getApplicationContext(), RecordActivity.class));
     }
 }
