@@ -153,4 +153,8 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.btn_addMealRecord) void toRecordActivity() {
         startActivity(new Intent(getApplicationContext(), RecordActivity.class));
     }
+
+    @OnClick(R.id.btn_viewTraffic) void toViewPosActivity() {
+        startActivity(new Intent(getApplicationContext(), ViewPosActivity.class));
+    }
 }
