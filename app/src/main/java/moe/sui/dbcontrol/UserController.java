@@ -17,9 +17,9 @@ public class UserController {
 
 
     /**
-     * 验证一个手机号码是否在数据库中存在
+     * 注册账号
      * @param contact 手机号码
-     * @return 当手机号存在时返回值为真
+     * @return 手机号重复返回-2，身份证重复返回-3，学号重复返回-4，注册成功返回uid，其他失败返回-1
      */
     //注册
     public static int register(String name,String contact,String idNum,String address,String password)throws Exception{
@@ -31,11 +31,14 @@ public class UserController {
             else return -1;
         }
         String user = "('"+name+"','"+contact+"','"+idNum+"','"+address+"','"+password+"')";
+        String user_nid ="('"+name+"','"+contact+"','"+address+"','"+password+"')";
         Connection connection=DBconnect.getConnection();
         Statement statement_register = connection.createStatement();
         Statement statement_getUID= connection.createStatement();
-        String sql_register = "insert into User (name,contact,idNum,address,password) values"+user;
-        if(statement_register.executeUpdate(sql_register)>0){
+        String sql_register_id = "insert into User (name,contact,idNum,address,password) values"+user;
+        if(idNum==""){System.out.println("空id");}
+        else{System.out.println("id非空");}
+        if(statement_register.executeUpdate(sql_register_id)>0){
             String sql_getUID="select userID from User where contact="+contact;
             ResultSet resultSet = statement_getUID.executeQuery(sql_getUID);
             resultSet.next();
@@ -107,6 +110,7 @@ public class UserController {
 
     public static boolean isIdNumExist(String id) throws Exception{
 
+        if(id == ""){return false;}
         Connection connection=DBconnect.getConnection();
         Statement statement = connection.createStatement();
         String sql = "select * from User where idNum="+id;
