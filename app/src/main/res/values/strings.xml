@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">DiningHallDB</string>
     <string-array name="dining_position">
-        <item>选择此次就餐地点</item>
+        <item>点击查看所有选项</item>
         <item>第一饭堂 1层</item>
         <item>第二饭堂 2层</item>
         <item>地点3</item>
@@ -9,7 +9,7 @@
     </string-array>
 
     <string-array name="dining_window">
-        <item>选择此次就餐窗口</item>
+        <item>点击查看所有窗口</item>
         <item>窗口1</item>
         <item>窗口2</item>
         <item>窗口3</item>

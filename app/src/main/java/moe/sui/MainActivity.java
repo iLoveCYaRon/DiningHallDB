@@ -18,6 +18,8 @@ import com.raizlabs.android.dbflow.sql.language.SQLite;
 
 import java.sql.Date;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import moe.sui.dbcontrol.DBconnect;
 import moe.sui.dbcontrol.SeatController;
 import moe.sui.dbcontrol.UserController;
@@ -37,15 +39,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
         setContentView(R.layout.activity_main);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
 
-            }
-        }).start();
+        ButterKnife.bind(this);
         initTopBar();
     }
 
@@ -143,6 +139,18 @@ public class MainActivity extends AppCompatActivity {
         topBar.setTitle("主界面");
         Button leftButton = topBar.addLeftTextButton("登录", R.id.empty_view_button);
         leftButton.setTextColor(R.color.colorBackground);
-        leftButton.setOnClickListener(v -> startActivity(new Intent(getBaseContext(), AccManageActivity.class)));
+        leftButton.setOnClickListener(v -> {
+            if(getSharedPreferences("account", MODE_PRIVATE).getBoolean("status", false)) {
+                startActivity(new Intent(getApplicationContext(), AccManageActivity.class));
+            } else {
+                Toast.makeText(getApplicationContext(), "您已成功登录过，无需再次登录", Toast.LENGTH_SHORT).show();
+                // 启动个人信息页 可在个人信息页退出登录
+                startActivity(new Intent(getApplicationContext(), AccManageActivity.class));
+            }
+        });
+    }
+
+    @OnClick(R.id.btn_addMealRecord) void toRecordActivity() {
+        startActivity(new Intent(getApplicationContext(), RecordActivity.class));
     }
 }

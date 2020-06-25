@@ -6,6 +6,8 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -28,9 +30,9 @@ public class ConfigActivity extends AppCompatActivity {
         new Thread(new Runnable() {//测试
             @Override
             public void run() {
-                DBconnect.setDBLink("192.168.56.133:3306","user","password");
+                DBconnect.setDBLink("192.168.3.215:3306","root","scut");
                 try {
-                    System.out.println(UserController.Register("xx","17012345678","4455522","rwasdwa","88888888"));
+                    System.out.println(UserController.register("xx","17012345678","4455522","rwasdwa","88888888"));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -89,12 +91,38 @@ public class ConfigActivity extends AppCompatActivity {
             String sqlUsername = pref.getString("sqlUsername", null);
             String sqlPassword = pref.getString("sqlPassword", null);
             if (sqlAddr!=null&&sqlPort!=null&&sqlPassword!=null&&sqlUsername!=null) {
-                //调用连接方法
                 String sqlURL = sqlAddr + ":" + sqlPort;
+                new Thread(() -> {
+                    //设置数据库参数
+                    DBconnect.setDBLink(sqlURL, sqlUsername, sqlPassword);
+                    //测试连接状态
+                    Message msg = new Message(); msg.what = -1;
+                    try {
+                        if(DBconnect.getConnection()!=null) {
+                            msg.what = 0;
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    configHandler.sendMessage(msg);
+                }).start();
             } else {
                 Toast.makeText(getApplicationContext(), "数据库配置不完整", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
+    @SuppressLint("HandlerLeak")
+    private Handler configHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if(msg.what != -1) {
+                Toast.makeText(getApplicationContext(), "数据库配置正确", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getBaseContext(),MainActivity.class));
+            } else {
+                Toast.makeText(getApplicationContext(), "数据库无法连接", Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
 
 }

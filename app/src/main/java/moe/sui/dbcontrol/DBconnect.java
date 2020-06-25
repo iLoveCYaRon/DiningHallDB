@@ -24,7 +24,6 @@ public class DBconnect {
         url ="jdbc:mysql://"+ip_port+databaseName+SSLTZ;
         user = db_login_usrname;
         pwd =db_login_pwd;
-
     }
 
     public static Connection getConnection() throws Exception {
