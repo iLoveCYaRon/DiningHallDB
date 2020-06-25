@@ -21,7 +21,6 @@ import java.sql.Date;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import moe.sui.dbcontrol.DBconnect;
-import moe.sui.dbcontrol.SeatController;
 import moe.sui.dbcontrol.UserController;
 import moe.sui.ds.MealRecord;
 import moe.sui.ds.Position;
@@ -129,7 +128,6 @@ public class MainActivity extends AppCompatActivity {
         record.setEndTime(new Date(-1));
         record.save();
 
-        SeatController.getAvailableSeat();
 
     }
 
