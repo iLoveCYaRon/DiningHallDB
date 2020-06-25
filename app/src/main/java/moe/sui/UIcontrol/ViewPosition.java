@@ -15,30 +15,16 @@ import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.material.card.MaterialCardView;
-import com.qmuiteam.qmui.skin.QMUISkinManager;
-import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
-import com.qmuiteam.qmui.widget.popup.QMUIPopups;
-import com.qmuiteam.qmui.widget.popup.QMUIQuickAction;
-import com.raizlabs.android.dbflow.annotation.NotNull;
-import com.raizlabs.android.dbflow.config.FlowManager;
-import com.raizlabs.android.dbflow.sql.language.SQLite;
-import com.raizlabs.android.dbflow.structure.ModelAdapter;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import moe.sui.R;
+import moe.sui.ViewWindowActivity;
 
 public class ViewPosition extends Fragment {
 
@@ -59,11 +45,10 @@ public class ViewPosition extends Fragment {
             ViewHolder(View view) {
                 super(view);
                 cardView = (CardView) view;
-//                productPhoto = view.findViewById(R.id.product_view);
-//                title = view.findViewById(R.id.textViewTitle);
-//                shortDescription = view.findViewById(R.id.textViewDesci);
-//                price = view.findViewById(R.id.textViewPrice);
-//                option = view.findViewById(R.id.buttonOption);
+                posName = view.findViewById(R.id.card_win_name);
+                posTime = view.findViewById(R.id.card_win_time);
+                posNewNum = view.findViewById(R.id.card_queue_num);
+                posNowNum = view.findViewById(R.id.card_text_now_num);
             }
         }
 
@@ -79,18 +64,16 @@ public class ViewPosition extends Fragment {
             }
             View view = LayoutInflater.from(mContext).inflate(R.layout.card_pos_info,parent,false);
             final ViewHolder viewHolder =  new ViewHolder(view);
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Integer integer = mPosList.get(viewHolder.getAdapterPosition());
-//                    ProductViewActivity.actionStart(getActivity(), product.getId());
-                }
+            view.setOnClickListener(v -> {
+                Integer integer = mPosList.get(viewHolder.getAdapterPosition());
+                ViewWindowActivity.actionStart(getActivity(), integer);
             });
             return viewHolder;
         }
 
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+            //根据List内容依次填入文本到RecyclerView中
 //            Product product = mProductList.get(position);
 //
 //            // 设置卡片文本
@@ -118,13 +101,6 @@ public class ViewPosition extends Fragment {
             @Override
             public void onClick(View v) {
                 getActivity().onBackPressed();
-            }
-        });
-
-        topBar.addRightTextButton("刷新", R.id.empty_view_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                refreshProduct();
             }
         });
 

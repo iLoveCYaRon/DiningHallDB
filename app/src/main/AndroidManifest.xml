@@ -12,8 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ViewPosActivity"></activity>
-        <activity android:name=".RecordActivity"></activity>
+        <activity android:name=".ViewWindowActivity"></activity>
+        <activity android:name=".ViewPosActivity" />
+        <activity android:name=".RecordActivity" />
         <activity android:name=".AccManageActivity" />
         <activity android:name=".ConfigActivity">
             <intent-filter>
