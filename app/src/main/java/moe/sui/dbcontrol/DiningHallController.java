@@ -104,6 +104,7 @@ public class DiningHallController {
          }
          return list;
 
+
      }
 
 /**直接获取所有窗口的方法
@@ -130,23 +131,23 @@ public class DiningHallController {
 
 /**
  * 直接获取所有地点的方法
- * return List<Position>
+ * return Map<地点码 int, 地点名 String>
  */
-     public static List<Position> getAllPosition() throws Exception {
+     public static Map<Integer,String> getAllPosition() throws Exception {
         String sql_getPosition = "select * from `Position`";
-        List<Position> list = new ArrayList<>();
+        Map<Integer,String> map= new HashMap<Integer,String>();
         Connection connection = DBconnect.getConnection();
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(sql_getPosition);
         int posId;
         String posName;
         int floor;
-        while (resultSet.next()){
-            posId=resultSet.getInt("winId");
-            posName =resultSet.getString("winName");
-            floor = resultSet.getInt("Position_posId");
-            list.add(new Position(posId,posName,floor));
-        }
-        return list;
+        while(resultSet.next()) {
+            posId=resultSet.getInt("posId");
+            floor = resultSet.getInt("posFloor");
+            posName =resultSet.getString("posName")+floor+"层";
+            map.put(posId,posName);
+         }
+         return map;
     }
 }
