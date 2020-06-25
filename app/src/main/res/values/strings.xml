@@ -16,4 +16,12 @@
         <item>窗口4</item>
     </string-array>
 
+    <string-array name="during_time">
+        <item>5分钟</item>
+        <item>10分钟</item>
+        <item>15分钟</item>
+        <item>30分钟</item>
+        <item>疫情期间请尽快用餐</item>
+    </string-array>
+
 </resources>
