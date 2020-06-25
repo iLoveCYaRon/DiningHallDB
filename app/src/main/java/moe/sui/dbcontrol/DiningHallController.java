@@ -130,23 +130,38 @@ public class DiningHallController {
 
 /**
  * 直接获取所有地点的方法
- * return List<Position>
+ * return Map<posId,posName+floor+"层">
  */
-     public static List<Position> getAllPosition() throws Exception {
-        String sql_getPosition = "select * from `Position`";
-        List<Position> list = new ArrayList<>();
+     public static Map<Integer,String> getAllPosition() throws Exception {
+        String sql_getAllPosition = "select * from `Position`";
+        Map<Integer,String> map=new HashMap<>();
         Connection connection = DBconnect.getConnection();
         Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery(sql_getPosition);
+        ResultSet resultSet = statement.executeQuery(sql_getAllPosition);
         int posId;
         String posName;
         int floor;
         while (resultSet.next()){
-            posId=resultSet.getInt("winId");
-            posName =resultSet.getString("winName");
-            floor = resultSet.getInt("Position_posId");
-            list.add(new Position(posId,posName,floor));
+            posId=resultSet.getInt("posId");
+            floor = resultSet.getInt("floor");
+            posName =resultSet.getString("posName")+floor+"层";
+            map.put(posId,posName);
         }
-        return list;
+        return map;
+    }
+
+    /**
+     * Seat cr to id
+     * 输入地点码，行，列，返回seatId
+     */
+    public static int getSeatId(int Position_posId,int column,int row) throws Exception {
+        String sql_getSeatId = "select seatId from Seat "+
+                "where Position_posId=" +Position_posId+" and column="+column+
+                " and row=" + row;
+        Connection connection = DBconnect.getConnection();
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql_getSeatId);
+        if(resultSet.next()){ return resultSet.getInt(1);}
+        else return -1;
     }
 }
