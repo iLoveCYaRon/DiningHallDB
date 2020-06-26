@@ -36,7 +36,7 @@ public class UserController {
         Statement statement_register = connection.createStatement();
         Statement statement_getUID= connection.createStatement();
         String sql_register_id = "insert into User (name,contact,idNum,address,password) values"+user;
-        if(idNum==""){System.out.println("空id");}
+        if(idNum.equals("")){System.out.println("空id");}
         else{System.out.println("id非空");}
         if(statement_register.executeUpdate(sql_register_id)>0){
             String sql_getUID="select userID from User where contact="+contact;
@@ -93,8 +93,7 @@ public class UserController {
         String sql = "select * from User where contact="+contact;
         ResultSet resultSet = statement.executeQuery(sql);
 
-        if(resultSet.next()) return true;
-        else return false;
+        return resultSet.next();
     }
 
     public static boolean isUIDExist(String UID)throws Exception{
@@ -103,20 +102,18 @@ public class UserController {
         String sql = "select * from User where userId="+UID;
         ResultSet resultSet = statement.executeQuery(sql);
 
-        if(resultSet.next()) return true;
-        else return false;
+        return resultSet.next();
     }
 
 
     public static boolean isIdNumExist(String id) throws Exception{
 
-        if(id == ""){return false;}
+        if(id.equals("")){return false;}
         Connection connection=DBconnect.getConnection();
         Statement statement = connection.createStatement();
         String sql = "select * from User where idNum="+id;
         ResultSet resultSet = statement.executeQuery(sql);
         //String idN = resultSet.getString(1);
-        if(resultSet.next()) return true;
-        else return false;
+        return resultSet.next();
     }
 }
