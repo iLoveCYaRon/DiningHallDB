@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -65,10 +66,25 @@ public class RecordActivity extends AppCompatActivity {
         initUI();
     }
 
+    /**
+     * 初始化UI界面
+     */
     private void initUI() {
         QMUITopBar topBar = findViewById(R.id.topbar_record);
         topBar.setTitle("填写就餐信息");
         topBar.addLeftBackImageButton().setOnClickListener(v -> onBackPressed());
+
+        //获取保存时间，如果不存在则不可点击提交按钮，存在提示有未提交记录
+        SharedPreferences pref = getSharedPreferences("record", MODE_PRIVATE);
+        String saveTime = pref.getString("time", null);
+        if (saveTime==null) {
+            ((Button)findViewById(R.id.btn_addMealRecord)).setClickable(false);
+        } else {
+            Toast.makeText(getApplicationContext(),"您有未提交的就餐记录，请按照上次就餐填写信息并提交",Toast.LENGTH_SHORT).show();
+            ((Button)findViewById(R.id.btn_saveMealRecord)).setClickable(false);
+        }
+
+        //刷新下拉框内容
         new Thread(() -> {
             try {
                 //获取食堂可用哈希表
@@ -84,7 +100,7 @@ public class RecordActivity extends AppCompatActivity {
         }).start();
     }
 
-    //Spinner加载监听事件
+    //选择地点的下拉框监听事件
     @OnItemSelected(R.id.spin_pos)
     void onPosChanged(){
         String search = mPosSpinner.getSelectedItem().toString();
@@ -93,10 +109,10 @@ public class RecordActivity extends AppCompatActivity {
                 try {
                     //根据地点获取窗口列表
                     winList = DiningHallController.getWindowByPos(posMap.get(search));
-                    //获取行列限制
+                    //获取该地点座位行列限制
                     Map<String,Integer> range = DiningHallController.getSeatRange(posMap.get(search));
                     maxRow = range.get("row"); maxColumn = range.get("column");
-                    //发送信息通知UI
+                    //发送信息更新UI
                     Message msg = new Message(); msg.what = 2; spinnerHandler.sendMessage(msg);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -105,6 +121,7 @@ public class RecordActivity extends AppCompatActivity {
         }
     }
 
+    //在主线程更新下拉框UI
     @SuppressLint("HandlerLeak")
     Handler spinnerHandler = new Handler(){
         @Override
@@ -143,6 +160,13 @@ public class RecordActivity extends AppCompatActivity {
     @OnClick(R.id.btn_addMealRecord)
     public void addMealRecord() {
         int uid = validateStatus();
+        //检测行列是否在范围内
+        int column = Integer.parseInt(mRecordColumn.getText().toString());
+        int row = Integer.parseInt(mRecordRow.getText().toString());
+        if(column>maxColumn || row>maxRow) {
+            Toast.makeText(getApplicationContext(),"座位不合法",Toast.LENGTH_SHORT).show();
+            return;
+        }
         if(uid!=-1) {
             int winId = winList.get(mWinSpinner.getSelectedItemPosition()).winId;
             SharedPreferences pref = getSharedPreferences("record",MODE_PRIVATE);
@@ -152,9 +176,6 @@ public class RecordActivity extends AppCompatActivity {
                     String saveTime = pref.getString("time", null);
                     Date curr = new Date();
                     int duringTime = Integer.parseInt(mTimeSpinner.getSelectedItem().toString());
-                    //暂不限制输入
-                    int column = Integer.parseInt(mRecordColumn.getText().toString());
-                    int row = Integer.parseInt(mRecordRow.getText().toString());
                     if (saveTime==null) {
                         MealRecordController.sitDown(uid,winId,curr,curr,column,row,duringTime);
                     } else {
@@ -162,8 +183,10 @@ public class RecordActivity extends AppCompatActivity {
                         Date save = df.parse(saveTime); //字符串转时间
                         MealRecordController.sitDown(uid,winId,save,curr,column,row,duringTime);
                         SharedPreferences.Editor editor = pref.edit();
+                        //删除已保存时间
                         editor.remove("time"); editor.apply();
                     }
+                    Message msg = new Message(); msg.what = 1; recordHandler.sendMessage(msg);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -190,6 +213,8 @@ public class RecordActivity extends AppCompatActivity {
                     pref.apply();
                     //插入记录
                     MealRecordController.startQueue(uid,winId,curr);
+                    //弹出提示信息
+                    Message msg = new Message(); msg.what = 2; recordHandler.sendMessage(msg);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -206,5 +231,27 @@ public class RecordActivity extends AppCompatActivity {
         }
         return -1;
     }
+
+    //在主线程更新下拉框UI
+    @SuppressLint("HandlerLeak")
+    Handler recordHandler = new Handler(){
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 1:
+                    //提示就餐记录提交
+                    Toast.makeText(getApplicationContext(),"就餐记录已提交",Toast.LENGTH_SHORT).show();
+                    ((Button)findViewById(R.id.btn_saveMealRecord)).setClickable(true);
+                    ((Button)findViewById(R.id.btn_addMealRecord)).setClickable(false);
+                    break;
+                case 2:
+                    //提示就餐记录保存
+                    Toast.makeText(getApplicationContext(),"就餐记录保存，找到座位后不要忘了提交",Toast.LENGTH_SHORT).show();
+                    ((Button)findViewById(R.id.btn_addMealRecord)).setClickable(true);
+                    ((Button)findViewById(R.id.btn_saveMealRecord)).setClickable(false);
+            }
+        }
+    };
 }
 
