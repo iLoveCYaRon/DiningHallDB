@@ -29,12 +29,15 @@ public class GetTrafficMonitor {
         int currentNum;
         String posName;
         String updateTime;
+        int posId;
         while(resultSet.next()) {
             updateTime = resultSet.getString("timeMonitor");
             increaseNum = resultSet.getInt("increaseDiners");
             currentNum = resultSet.getInt("currentDiners");
-            posName =  DiningHallController.getPosNameByPosId(resultSet.getInt("Position_posId"));
-            DTList.add(new DineTraffic(increaseNum,currentNum,posName,updateTime));
+            posId = resultSet.getInt("Position_posId");
+            posName =  DiningHallController.getPosNameByPosId(posId);
+
+            DTList.add(new DineTraffic(increaseNum,currentNum,posName,updateTime,posId));
         }
         return DTList;
     }
@@ -43,8 +46,10 @@ public class GetTrafficMonitor {
      * 获取所有排队人数，窗口名，记录的更新时间
      *
      */
-    public static List<LineTraffic> getTrafficLining() throws Exception {
-        String sql_getLining = "select * from TrafficMonitoring_2";
+    public static List<LineTraffic> getTrafficLining(int posId) throws Exception {
+
+        String sql_getLining = "select * from TrafficMonitoring_2 "+
+                "where posId =" + posId;
         Connection connection = DBconnect.getConnection();
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(sql_getLining);
@@ -54,10 +59,13 @@ public class GetTrafficMonitor {
         String winName;
         String updateTime;
         while(resultSet.next()) {
-            updateTime = resultSet.getString("timeMonitor");
-            currentNum = resultSet.getInt("lineNumber");
-            winName =  DiningHallController.getPosNameByPosId(resultSet.getInt("Window_winid"));
-            LTList.add(new LineTraffic(currentNum,winName,updateTime));
+            //如果当前的行里的窗口，不是指定地点的话，则忽略
+            if(posId==DiningHallController.getPosByWindow(resultSet.getInt("Window_winId"))) {
+                updateTime = resultSet.getString("timeMonitor");
+                currentNum = resultSet.getInt("lineNumber");
+                winName =  DiningHallController.getPosNameByPosId(resultSet.getInt("Window_winId"));
+                LTList.add(new LineTraffic(currentNum,winName,updateTime));
+            }
         }
         return LTList;
     }
