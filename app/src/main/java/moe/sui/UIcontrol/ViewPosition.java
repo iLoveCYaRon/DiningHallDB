@@ -22,18 +22,25 @@ import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import moe.sui.R;
 import moe.sui.ViewWindowActivity;
+import moe.sui.datastruct.DineTraffic;
+import moe.sui.dbcontrol.GetTrafficMonitor;
+import moe.sui.ds.Position;
+import moe.sui.timecalculate.TimeCalculate;
 
 public class ViewPosition extends Fragment {
 
     private QMUITipDialog dialog;
 
+    private List<DineTraffic> mPosList;
+
     // PositionAdapter 内部类
     class PositionAdapter extends RecyclerView.Adapter<PositionAdapter.ViewHolder> {
         private Context mContext;
-        private List<Integer> mPosList;
+        private List<DineTraffic> mPosList;
 
         class ViewHolder extends RecyclerView.ViewHolder {
             CardView cardView;
@@ -52,7 +59,7 @@ public class ViewPosition extends Fragment {
             }
         }
 
-        PositionAdapter(List<Integer> posList) {
+        PositionAdapter(List<DineTraffic> posList) {
             mPosList = posList;
         }
 
@@ -65,8 +72,8 @@ public class ViewPosition extends Fragment {
             View view = LayoutInflater.from(mContext).inflate(R.layout.card_pos_info,parent,false);
             final ViewHolder viewHolder =  new ViewHolder(view);
             view.setOnClickListener(v -> {
-                Integer integer = mPosList.get(viewHolder.getAdapterPosition());
-                ViewWindowActivity.actionStart(getActivity(), integer);
+                DineTraffic traffic = mPosList.get(viewHolder.getAdapterPosition());
+                ViewWindowActivity.actionStart(getActivity(), traffic.posId);
             });
             return viewHolder;
         }
@@ -74,15 +81,13 @@ public class ViewPosition extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
             //根据List内容依次填入文本到RecyclerView中
-//            Product product = mProductList.get(position);
-//
-//            // 设置卡片文本
-//            holder.title.setText(product.getName());
-//            holder.price.setText(product.getPrice());
-//            String description =  product.getShort_description();
-//            description = description.substring(3, description.length()-5);
-//            holder.shortDescription.setText(description);
+            DineTraffic traffic = mPosList.get(position);
 
+            // 设置卡片文本
+            holder.posName.setText(traffic.posName);
+            holder.posNewNum.setText(String.valueOf(traffic.increaseNum));
+            holder.posNowNum.setText(String.valueOf(traffic.currentNum));
+            holder.posTime.setText(traffic.updateTime.substring(11,traffic.updateTime.indexOf(".")));
         }
 
         @Override
@@ -97,28 +102,22 @@ public class ViewPosition extends Fragment {
         View view = inflater.inflate(R.layout.fragment_view_position, container, false);
         // 设置topBar
         QMUITopBar topBar = view.findViewById(R.id.topbar);
-        topBar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().onBackPressed();
+        topBar.addLeftBackImageButton().setOnClickListener(v -> getActivity().onBackPressed());
+
+        new Thread(() -> {
+            try {
+                mPosList = GetTrafficMonitor.getTrafficDining();
+                Message msg = new Message(); msg.what = 1;handler.sendMessage(msg);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        });
-
-        // 设置RecyclerView
-        List<Integer> productList = new ArrayList<>();
-        productList.add(1); productList.add(1); productList.add(1);
-
-        RecyclerView recyclerView = view.findViewById(R.id.pos_recycler_view);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(new PositionAdapter(productList));
-
+        }).start();
         // 设置加载对话框
         dialog = new QMUITipDialog.Builder(getContext())
                 .setIconType(QMUITipDialog.Builder.ICON_TYPE_LOADING)
                 .setTipWord("正在加载")
                 .create();
-
+        dialog.show();
         return view;
     }
 
@@ -132,13 +131,13 @@ public class ViewPosition extends Fragment {
             switch (msg.what)
             {
                 case 1:
-//                    // 获取完数据，可以加载recyclerView
-//                    RecyclerView recyclerView = Objects.requireNonNull(getView()).findViewById(R.id.product_title_recycler_view);
-//                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-//                    recyclerView.setLayoutManager(linearLayoutManager);
-//                    recyclerView.setAdapter(new ProductAdapter(SQLite.select().from(Product.class).queryList()));
-//                    dialog.hide();
-//                    break;
+                    // 获取完数据，可以加载recyclerView
+                    RecyclerView recyclerView = Objects.requireNonNull(getView()).findViewById(R.id.pos_recycler_view);
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+                    recyclerView.setLayoutManager(linearLayoutManager);
+                    recyclerView.setAdapter(new PositionAdapter(mPosList));
+                    dialog.hide();
+                    break;
             }
         }
     };

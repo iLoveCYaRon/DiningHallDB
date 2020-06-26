@@ -39,15 +39,18 @@ import java.util.List;
 import java.util.Objects;
 
 import moe.sui.R;
+import moe.sui.datastruct.LineTraffic;
+import moe.sui.dbcontrol.GetTrafficMonitor;
 
 public class ViewWindow extends Fragment {
 
     private QMUITipDialog dialog;
+    private List<LineTraffic> mWinList;
 
     // PositionAdapter 内部类
     class WindowAdapter extends RecyclerView.Adapter<WindowAdapter.ViewHolder> {
         private Context mContext;
-        private List<Integer> mPosList;
+        private List<LineTraffic> mWinList;
 
         class ViewHolder extends RecyclerView.ViewHolder {
             CardView cardView;
@@ -58,16 +61,15 @@ public class ViewWindow extends Fragment {
             ViewHolder(View view) {
                 super(view);
                 cardView = (CardView) view;
-//                productPhoto = view.findViewById(R.id.product_view);
-//                title = view.findViewById(R.id.textViewTitle);
-//                shortDescription = view.findViewById(R.id.textViewDesci);
-//                price = view.findViewById(R.id.textViewPrice);
-//                option = view.findViewById(R.id.buttonOption);
+
+                winName = view.findViewById(R.id.card_win_name);
+                winTime = view.findViewById(R.id.card_win_time);
+                queueNum = view.findViewById(R.id.card_queue_num);
             }
         }
 
-        WindowAdapter(List<Integer> posList) {
-            mPosList = posList;
+        WindowAdapter(List<LineTraffic> winList) {
+            mWinList = winList;
         }
 
         @NonNull
@@ -82,20 +84,17 @@ public class ViewWindow extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-//            Product product = mProductList.get(position);
-//
-//            // 设置卡片文本
-//            holder.title.setText(product.getName());
-//            holder.price.setText(product.getPrice());
-//            String description =  product.getShort_description();
-//            description = description.substring(3, description.length()-5);
-//            holder.shortDescription.setText(description);
+            LineTraffic traffic = mWinList.get(position);
 
+            // 设置卡片文本
+            holder.winName.setText(traffic.winName);
+            holder.winTime.setText(traffic.updateTime.substring(11,traffic.updateTime.indexOf(".")));
+            holder.queueNum.setText(String.valueOf(traffic.currentNum));
         }
 
         @Override
         public int getItemCount() {
-            return mPosList.size();
+            return mWinList.size();
         }
     }
 
@@ -105,32 +104,28 @@ public class ViewWindow extends Fragment {
         View view = inflater.inflate(R.layout.fragment_view_window, container, false);
         // 设置topBar
         QMUITopBar topBar = view.findViewById(R.id.topbar_queue);
-        topBar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().onBackPressed();
-            }
-        });
-
-        // 设置RecyclerView
-        List<Integer> productList = new ArrayList<>();
-        productList.add(1); productList.add(1); productList.add(1);
-
-        RecyclerView recyclerView = view.findViewById(R.id.queue_recycler_view);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(new WindowAdapter(productList));
-
-        // 设置加载对话框
+        topBar.addLeftBackImageButton().setOnClickListener(v -> getActivity().onBackPressed());
         dialog = new QMUITipDialog.Builder(getContext())
                 .setIconType(QMUITipDialog.Builder.ICON_TYPE_LOADING)
                 .setTipWord("正在加载")
                 .create();
-
+        dialog.show();
         return view;
     }
 
 
+    public void refresh(int posId) {
+        new Thread(() -> {
+            try {
+                List<LineTraffic> trafficList = GetTrafficMonitor.getTrafficLining(posId);
+                mWinList = GetTrafficMonitor.getTrafficLining(posId);
+                Message msg = new Message(); msg.what = 1;handler.sendMessage(msg);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
+        // 设置加载对话框
+    }
     @SuppressLint("HandlerLeak")
     private Handler handler = new Handler()
     {
@@ -140,13 +135,13 @@ public class ViewWindow extends Fragment {
             switch (msg.what)
             {
                 case 1:
-//                    // 获取完数据，可以加载recyclerView
-//                    RecyclerView recyclerView = Objects.requireNonNull(getView()).findViewById(R.id.product_title_recycler_view);
-//                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-//                    recyclerView.setLayoutManager(linearLayoutManager);
-//                    recyclerView.setAdapter(new ProductAdapter(SQLite.select().from(Product.class).queryList()));
-//                    dialog.hide();
-//                    break;
+                    // 获取完数据，可以加载recyclerView
+                    RecyclerView recyclerView = Objects.requireNonNull(getView()).findViewById(R.id.queue_recycler_view);
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+                    recyclerView.setLayoutManager(linearLayoutManager);
+                    recyclerView.setAdapter(new ViewWindow.WindowAdapter(mWinList));
+                    dialog.hide();
+                    break;
             }
         }
     };

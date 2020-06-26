@@ -7,7 +7,7 @@ public class LineTraffic {
 
     public LineTraffic(int cNum, String wName, String uTime){
         currentNum=cNum;
-        winName = winName;
+        winName = wName;
         updateTime=uTime;
     }
 }

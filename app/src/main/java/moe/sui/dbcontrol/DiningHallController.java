@@ -185,14 +185,14 @@ public class DiningHallController {
      * 通过地点号获取地点名
      */
     public static String getPosNameByPosId(int posId) throws Exception {
-        String sql_find_PN_by_PI = "select posName from `Position` "+
+        String sql_find_PN_by_PI = "select * from `Position` "+
                 "where posId=" + posId;
         Connection connection = DBconnect.getConnection();
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(sql_find_PN_by_PI);
         String posName = "";
         while(resultSet.next()) {
-            posName = resultSet.getString("posName");
+            posName = resultSet.getString("posName")+resultSet.getInt("posFloor")+"层";
         }
         return posName;
     }
