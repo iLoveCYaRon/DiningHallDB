@@ -15,9 +15,9 @@ import java.util.Map;
 import moe.sui.datastruct.Position;
 import moe.sui.datastruct.Window;
 import moe.sui.ds.MealRecord;
-import moe.sui.ds.MealRecord_Table;
+
 import moe.sui.ds.Seat;
-import moe.sui.ds.Seat_Table;
+
 
 /**
  * 食堂位置控制类
@@ -164,4 +164,37 @@ public class DiningHallController {
         if(resultSet.next()){ return resultSet.getInt(1);}
         else return -1;
     }
+
+    /**
+     * 通过窗口号获取窗口名
+     */
+    public static String getWinNameByWinId(int winId) throws Exception {
+        String sql_find_WN_by_WI = "select winName from `Window` "+
+                "where winId=" + winId;
+        Connection connection = DBconnect.getConnection();
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql_find_WN_by_WI);
+        String winName = "";
+        while(resultSet.next()) {
+            winName = resultSet.getString("winName");
+        }
+        return winName;
+    }
+
+    /**
+     * 通过地点号获取地点名
+     */
+    public static String getPosNameByPosId(int posId) throws Exception {
+        String sql_find_PN_by_PI = "select posName from `Position` "+
+                "where posId=" + posId;
+        Connection connection = DBconnect.getConnection();
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql_find_PN_by_PI);
+        String posName = "";
+        while(resultSet.next()) {
+            posName = resultSet.getString("posName");
+        }
+        return posName;
+    }
+
 }
