@@ -48,8 +48,7 @@ public class GetTrafficMonitor {
      */
     public static List<LineTraffic> getTrafficLining(int posId) throws Exception {
 
-        String sql_getLining = "select * from TrafficMonitoring_2 "+
-                "where posId =" + posId;
+        String sql_getLining = "select * from TrafficMonitoring_2";
         Connection connection = DBconnect.getConnection();
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(sql_getLining);
@@ -63,7 +62,7 @@ public class GetTrafficMonitor {
             if(posId==DiningHallController.getPosByWindow(resultSet.getInt("Window_winId"))) {
                 updateTime = resultSet.getString("timeMonitor");
                 currentNum = resultSet.getInt("lineNumber");
-                winName =  DiningHallController.getPosNameByPosId(resultSet.getInt("Window_winId"));
+                winName =  DiningHallController.getWinNameByWinId(resultSet.getInt("Window_winId"));
                 LTList.add(new LineTraffic(currentNum,winName,updateTime));
             }
         }
