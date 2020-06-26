@@ -7,6 +7,8 @@ import java.util.Date;
 
 import moe.sui.timecalculate.TimeCalculate;
 
+import static moe.sui.timecalculate.TimeCalculate.dateToString;
+
 /**
  * 控制用餐记录生成的类
  * 有三个阶段：1.开始排队，输入用户id，窗口号，进入时间
@@ -22,7 +24,7 @@ public class MealRecordController {
      */
     public static boolean startQueue(int User_userId, int Window_winId, Date enterTime) throws Exception {
 
-        String string_enterTime = TimeCalculate.dateToString(enterTime);
+        String string_enterTime = dateToString(enterTime);
         String sql_startQueue ="insert into MealRecord (User_userId,Window_winId,enterTime) values" +
                 "(" + User_userId + "," + Window_winId +  ",'" + string_enterTime + "')";
         Connection connection=DBconnect.getConnection();
@@ -47,8 +49,8 @@ public class MealRecordController {
         String leaveTime = TimeCalculate.dateAfterMinute(currentTime,predicMinute);
 
         String sql_sitDown ="update MealRecord set Seat_seatId='" + Seat_seatId + "', leaveTime='" +leaveTime+"' "+
-                "where User_userId =" + User_userId + " and enterTime ='" + enterTime + "'";
-        if(isMealRecordExist(User_userId,TimeCalculate.dateToString(enterTime))){}
+                "where User_userId =" + User_userId + " and enterTime ='" + dateToString(enterTime) + "'";
+        if(isMealRecordExist(User_userId, dateToString(enterTime))){}
         else { return false; }
 
         Connection connection=DBconnect.getConnection();

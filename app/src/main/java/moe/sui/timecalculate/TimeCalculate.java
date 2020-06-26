@@ -1,5 +1,7 @@
 package moe.sui.timecalculate;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
@@ -9,7 +11,8 @@ public class TimeCalculate {
      * 将Date输出为"yyyy-mm-dd HH:MM:SS"形式的String
      */
     public static String dateToString(Date date){
-        return String.format(Locale.CHINA,"%tF %tT",date,date);
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return df.format(date); //时间转字符串
     }
 
     /**
@@ -19,7 +22,6 @@ public class TimeCalculate {
         long timestamp=date.getTime();
 
         long newtimestamp = timestamp+ minute * 60 * 1000;
-
         Date newDate = new Date(newtimestamp);
         return dateToString(newDate);
     }

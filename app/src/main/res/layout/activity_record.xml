@@ -114,6 +114,15 @@
         android:layout_marginBottom="5dp"
         android:textSize="30sp"/>
 
+    <TextView
+        style="@style/GeneralEditTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorTextGrey"
+        android:text="单位：分钟"
+        android:textSize="14sp"
+        android:layout_marginBottom="5dp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -51,7 +51,7 @@ public class UserController {
     public static int contactLogin(String contact,String password) throws Exception {
         Connection connection=DBconnect.getConnection();
         Statement statement = connection.createStatement();
-        String IsPwdTrue_sql = "select userId from User where contact="+contact+" and password="+ password;
+        String IsPwdTrue_sql = "select userId from User where contact="+contact+" and password='"+ password +"'";
         ResultSet resultSet;
         if(!isContactExist(contact)) {System.out.println("登录失败，用户不存在");return -2;}
         else{

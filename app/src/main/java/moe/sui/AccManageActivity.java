@@ -113,6 +113,7 @@ public class AccManageActivity extends AppCompatActivity {
                     pref.putBoolean("status", true);
                     pref.putString("username", mLoginUsername.getText().toString());
                     pref.putString("password", mLoginPassword.getText().toString());
+                    pref.putInt("uid", msg.what);
                     pref.apply();
             }
             Toast.makeText(getApplicationContext(), notice, Toast.LENGTH_SHORT).show();

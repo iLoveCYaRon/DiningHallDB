@@ -52,9 +52,9 @@ public class DiningHallController {
 /**获取指定地点座位行列范围的方法
  * 输入地点id
  * return 数据结构 :键值对 <"column",行值(int)><"row",列值(int)>
- * map<colomn,row> getAllSeat(int posId)
+ * map<column,row> getAllSeat(int posId)
  * */
-    public static Map<String, Integer> getAllSeat(int posId) throws Exception {
+    public static Map<String, Integer> getSeatRange(int posId) throws Exception {
         String sql_count_column = "select count(*) as nums from Seat "
                 + "where `row`=1 and Position_posId =" + posId;
         String sql_count_row = "select count(*) as nums from Seat "
@@ -130,11 +130,11 @@ public class DiningHallController {
 
 /**
  * 直接获取所有地点的方法
- * return Map<posId,posName+floor+"层">
+ * @return HashMap<posName+floor+"层",posId>
  */
-     public static Map<Integer,String> getAllPosition() throws Exception {
+     public static HashMap<String, Integer> getAllPosition() throws Exception {
         String sql_getAllPosition = "select * from `Position`";
-        Map<Integer,String> map=new HashMap<>();
+        HashMap<String,Integer> map=new HashMap<>();
         Connection connection = DBconnect.getConnection();
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(sql_getAllPosition);
@@ -143,9 +143,9 @@ public class DiningHallController {
         int floor;
         while (resultSet.next()){
             posId=resultSet.getInt("posId");
-            floor = resultSet.getInt("floor");
+            floor = resultSet.getInt("posFloor");
             posName =resultSet.getString("posName")+floor+"层";
-            map.put(posId,posName);
+            map.put(posName,posId);
         }
         return map;
     }
@@ -156,8 +156,8 @@ public class DiningHallController {
      */
     public static int getSeatId(int Position_posId,int column,int row) throws Exception {
         String sql_getSeatId = "select seatId from Seat "+
-                "where Position_posId=" +Position_posId+" and column="+column+
-                " and row=" + row;
+                "where `Position_posId`=" +Position_posId+" and `column`="+column+
+                " and `row`=" + row;
         Connection connection = DBconnect.getConnection();
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(sql_getSeatId);
