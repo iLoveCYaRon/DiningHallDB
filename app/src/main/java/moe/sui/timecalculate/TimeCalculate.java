@@ -16,6 +16,16 @@ public class TimeCalculate {
     }
 
     /**
+     * 将Date输出为"HH:MM:SS"形式的String
+     *
+     *
+     */
+    public static String dateToStringHMS(Date date){
+        DateFormat df = new SimpleDateFormat("HH:mm:ss");
+        return df.format(date); //时间转字符串
+    }
+
+    /**
      * 输入一个Date，和一个int minute，返回minute分钟后的Date转换的String
      */
     public static String dateAfterMinute(Date date,int minute){
