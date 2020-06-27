@@ -61,7 +61,6 @@ public class MealRecordController {
         else return false;
     }
 
-    public static int leaveSeat(int User_userId,String enterTime,String leaveTime) throws Exception {
     public static int leaveSeat(int User_userId,String enterTime,String leaveTime,int winId) throws Exception {
 
         String sql_sitDown ="update MealRecord set leaveTime='" + leaveTime + "' " +
