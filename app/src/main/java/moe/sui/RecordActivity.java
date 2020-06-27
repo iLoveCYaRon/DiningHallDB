@@ -197,25 +197,29 @@ public class RecordActivity extends AppCompatActivity {
         }
     }
 
-    //设置暂存按钮点击事件
+    //我在排队按钮点击事件
     @OnClick(R.id.btn_saveMealRecord)
     public void saveMealRecord() {
         int uid = validateStatus();
+        int winId = winList.get(mWinSpinner.getSelectedItemPosition()).winId;
         if(uid!=-1) {
-            int winId = winList.get(mWinSpinner.getSelectedItemPosition()).winId;
-            SharedPreferences.Editor pref = getSharedPreferences("record",MODE_PRIVATE).edit();
             new Thread(() -> {
                 try {
                     //保存好时间 用于下次插入完整记录
+                    SharedPreferences pref = getSharedPreferences("record",MODE_PRIVATE);
+                    String saveTime = pref.getString("time", null);
                     Date curr = new Date();
                     DateFormat df = new SimpleDateFormat(mDateFormat);
                     String str = df.format(curr); //时间转字符串
-                    pref.putString("time",str);
-                    pref.apply();
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.putString("time", str);
+                    editor.apply();
                     //插入记录
-                    MealRecordController.startQueue(uid,winId,curr);
+                    MealRecordController.startQueue(uid, winId, curr);
                     //弹出提示信息
-                    Message msg = new Message(); msg.what = 2; recordHandler.sendMessage(msg);
+                    Message msg = new Message();
+                    msg.what = 2;
+                    recordHandler.sendMessage(msg);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -224,6 +228,38 @@ public class RecordActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),"登录状态异常",Toast.LENGTH_SHORT).show();
         }
     }
+
+    //我在排队按钮点击事件
+    @OnClick(R.id.btn_addPackageRecord)
+    public void addPackageRecord() {
+        int uid = validateStatus();
+        if(uid!=-1) {
+            SharedPreferences pref = getSharedPreferences("record",MODE_PRIVATE);
+            new Thread(() -> {
+                try {
+                    //获取保存时间，如果不存在则两个时间都用当前时间
+                    String saveTime = pref.getString("time", null);
+                    Date curr = new Date();
+                    if (saveTime==null) {
+                        MealRecordController.sitDown(uid,0,curr,curr,-1,-1,0);
+                    } else {
+                        DateFormat df = new SimpleDateFormat(mDateFormat);
+                        Date save = df.parse(saveTime); //字符串转时间
+                        MealRecordController.sitDown(uid,0,save,curr,-1,-1,0);
+                        SharedPreferences.Editor editor = pref.edit();
+                        //删除已保存时间
+                        editor.remove("time"); editor.apply();
+                    }
+                    Message msg = new Message(); msg.what = 1; recordHandler.sendMessage(msg);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }).start();
+        } else {
+            Toast.makeText(getApplicationContext(),"登录状态异常",Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
     private int validateStatus() {
         SharedPreferences pref = getSharedPreferences("account",MODE_PRIVATE);

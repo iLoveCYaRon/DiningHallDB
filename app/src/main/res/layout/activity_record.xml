@@ -127,16 +127,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginHorizontal="8dp">
+        android:layout_marginHorizontal="12dp">
 
         <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
-            android:id="@+id/btn_addMealRecord"
-            android:layout_width="250dp"
+            android:id="@+id/btn_addPackageRecord"
+            android:layout_width="204dp"
             android:layout_height="40dp"
-            android:layout_marginHorizontal="8dp"
+            android:layout_marginHorizontal="2dp"
             android:background="@color/colorAccent"
             android:scaleType="centerCrop"
-            android:text="提交"
+            android:text="我打包了"
             android:textColor="@color/colorBackground"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -148,10 +148,10 @@
             android:id="@+id/btn_saveMealRecord"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginHorizontal="8dp"
+            android:layout_marginHorizontal="2dp"
             android:background="@color/colorAccent"
             android:scaleType="centerCrop"
-            android:text="暂存"
+            android:text="我在排队"
             android:textColor="@color/colorBackground"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -161,12 +161,28 @@
 
     </LinearLayout>
 
+    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+        android:id="@+id/btn_addMealRecord"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginHorizontal="14dp"
+        android:layout_marginTop="4dp"
+        android:background="@color/colorAccent"
+        android:scaleType="centerCrop"
+        android:text="提交座位"
+        android:textColor="@color/colorBackground"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:qmui_backgroundColor="#3F51B5"
+        app:qmui_borderColor="@color/colorAlphaBackground"
+        app:qmui_radius="12dp" />
+
     <TextView
         style="@style/GeneralEditTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginHorizontal="16dp"
-        android:text="注：暂存功能用于只选定了窗口却未寻找到座位情况，点击暂存按钮将只提交地点和窗口号到数据库，计入为该窗口排队人员"
+        android:text="注：我在排队功能用于选定了窗口情况，点击暂存按钮将只提交地点和窗口号到数据库，计入为该窗口排队人员"
         />
 </LinearLayout>
