@@ -51,7 +51,7 @@ public class RecordActivity extends AppCompatActivity {
     @BindView(R.id.record_row)
     EditText mRecordRow;
 
-    private HashMap<String, Integer> posMap;
+    private HashMap<String, Integer> posMap = new HashMap<>();
     private List<Window> winList;
 
     private int maxRow = 0;
@@ -94,7 +94,6 @@ public class RecordActivity extends AppCompatActivity {
                 winList = DiningHallController.getAllWindow();
                 //发送信息通知UI
                 Message msg = new Message(); msg.what = 1; spinnerHandler.sendMessage(msg);
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
