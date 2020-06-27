@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,10 +18,14 @@ import com.raizlabs.android.dbflow.sql.language.Delete;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import moe.sui.dbcontrol.DBconnect;
+import moe.sui.dbcontrol.MealRecordController;
+import moe.sui.dbcontrol.UpdateTrafficController;
 import moe.sui.dbcontrol.UserController;
 import moe.sui.ds.MealRecord;
 import moe.sui.ds.Position;
@@ -155,4 +160,19 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.btn_viewTraffic) void toViewPosActivity() {
         startActivity(new Intent(getApplicationContext(), ViewPosActivity.class));
     }
+
+    @OnClick(R.id.btn_updateTraffic) void updateTraffic() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    UpdateTrafficController.UpdateDiningTraffic();
+                    UpdateTrafficController.UpdateLiningTraffic();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
 }
