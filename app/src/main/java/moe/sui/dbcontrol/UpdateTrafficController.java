@@ -36,7 +36,7 @@ public class UpdateTrafficController {
         while(resultSet.next()) {//while 对所有找到的位置进行遍历
             posId = resultSet.getInt("posId");
             new_currentDiners = countCurrentDine(posId,currentTime);//通过cCD方法获取正在用餐人数
-            new_increaseDiners = calDineIncrease(new_currentDiners);//通过cDI方法计算新增人数
+            new_increaseDiners = calDineIncrease(new_currentDiners,posId);//通过cDI方法计算新增人数
             updateTMDine(currentTime,new_increaseDiners,new_currentDiners,posId);
         }
     }
@@ -49,7 +49,7 @@ public class UpdateTrafficController {
      * 返回需要插入Traffic1表的currentNum
      */
     public static void UpdateLiningTraffic() throws Exception {
-        String sql_getAllWinId = "select * from Window";
+        String sql_getAllWinId = "select* from `Window`";
         Connection connection = DBconnect.getConnection();
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(sql_getAllWinId);
@@ -70,7 +70,7 @@ public class UpdateTrafficController {
      */
     public static int countCurrentLine(int winId) throws Exception {
         String sql_Count_Line ="select count(Window_winId) from MealRecord "+
-                "where Window_winId = "+winId+"and Seat_seatId = null";
+                "where Window_winId = "+winId+" and Seat_seatId is null";
         Connection connection = DBconnect.getConnection();
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(sql_Count_Line);
@@ -100,10 +100,11 @@ public class UpdateTrafficController {
     }
 
     /**
-     *计算新增恰饭人数
+     *计算某个地点新增恰饭人数
      */
-    public static int calDineIncrease(int new_curr) throws Exception {
-        String sql_get_Old_Curr ="select currentDiners from TrafficMonitoring_1 ";
+    public static int calDineIncrease(int new_curr,int posId) throws Exception {
+        String sql_get_Old_Curr ="select currentDiners from TrafficMonitoring_1 "+
+                "where Position_posId="+posId;
         Connection connection = DBconnect.getConnection();
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(sql_get_Old_Curr);
@@ -119,8 +120,8 @@ public class UpdateTrafficController {
         String sql_test_Pos_inTM1_Exist="select * from TrafficMonitoring_1 "+
                 "where Position_posId=" + Position_posId;
         String sql_update ="update TrafficMonitoring_1 set "+
-                "timeMonitor='"+timeMonitor+"' "+
-                "increaseDiners="+increaseDiners+" "+
+                "timeMonitor='"+timeMonitor+"',"+
+                "increaseDiners="+increaseDiners+","+
                 "currentDiners="+currentDiners+" "+
                 "where Position_posId="+Position_posId;
         String sql_insert = "insert into TrafficMonitoring_1 values('"+timeMonitor+"',"
@@ -146,10 +147,10 @@ public class UpdateTrafficController {
         String sql_test_Pos_inTM1_Exist="select * from TrafficMonitoring_2 "+
                 "where Window_winId=" + Window_winId;
         String sql_update ="update TrafficMonitoring_2 set "+
-                "timeMonitor='"+timeMonitor+"' "+
+                "timeMonitor='"+timeMonitor+"',"+
                 "lineNumber="+lineNumber+" "+
                 "where Window_winId="+Window_winId;
-        String sql_insert = "insert into TrafficMonitoring_1 values('"+timeMonitor+"',"
+        String sql_insert = "insert into TrafficMonitoring_2 values('"+timeMonitor+"',"
                 +lineNumber+","+Window_winId+")";
         Connection connection = DBconnect.getConnection();
         Statement statement_Query = connection.createStatement();

@@ -1,9 +1,12 @@
 package moe.sui.timecalculate;
 
+import android.icu.util.ULocale;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 public class TimeCalculate {
 
@@ -11,7 +14,9 @@ public class TimeCalculate {
      * 将Date输出为"yyyy-mm-dd HH:MM:SS"形式的String
      */
     public static String dateToString(Date date){
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        df.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
         return df.format(date); //时间转字符串
     }
 
@@ -21,7 +26,8 @@ public class TimeCalculate {
      *
      */
     public static String dateToStringHMS(Date date){
-        DateFormat df = new SimpleDateFormat("HH:mm:ss");
+        SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");
+        df.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
         return df.format(date); //时间转字符串
     }
 

@@ -32,6 +32,7 @@ import moe.sui.datastruct.Position;
 import moe.sui.datastruct.Window;
 import moe.sui.dbcontrol.DiningHallController;
 import moe.sui.dbcontrol.MealRecordController;
+import moe.sui.dbcontrol.UpdateTrafficController;
 
 public class RecordActivity extends AppCompatActivity {
 
