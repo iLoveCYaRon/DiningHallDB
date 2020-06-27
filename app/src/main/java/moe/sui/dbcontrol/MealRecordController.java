@@ -48,8 +48,8 @@ public class MealRecordController {
         int Seat_seatId = DiningHallController.getSeatId(Position_posId,seat_column,seat_row);
         String leaveTime = TimeCalculate.dateAfterMinute(currentTime,predicMinute);
 
-        String sql_sitDown ="update MealRecord set Seat_seatId='" + Seat_seatId + "', leaveTime='" +leaveTime+"' "+
-                "where User_userId =" + User_userId + " and enterTime ='" + dateToString(enterTime) + "'";
+        String sql_sitDown ="update MealRecord set Seat_seatId='" + Seat_seatId + "', leaveTime='" +leaveTime+"', "+
+                "Window_winId="+Window_winId+" "+ "where User_userId =" + User_userId + " and enterTime ='" + dateToString(enterTime) + "'";
         if(isMealRecordExist(User_userId, dateToString(enterTime))){}
         else { return false; }
 
@@ -61,7 +61,7 @@ public class MealRecordController {
         else return false;
     }
 
-    public static int leaveSeat(int User_userId,String enterTime,String leaveTime) throws Exception {
+    public static int leaveSeat(int User_userId,String enterTime,String leaveTime,int winId) throws Exception {
 
         String sql_sitDown ="update MealRecord set leaveTime='" + leaveTime + "' " +
                 "where User_userId =" + User_userId + " and enterTime ='" + enterTime + "'";
