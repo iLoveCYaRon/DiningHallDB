@@ -23,7 +23,8 @@ public class UpdateTrafficController {
      *
      */
     public static void UpdateDiningTraffic() throws Exception {
-        String sql_getAllPosId = "select * from Position";
+        String sql_getAllPosId = "select * from Position " +
+                "where posId !=0";//新增约束posId不等于0
         Connection connection = DBconnect.getConnection();
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(sql_getAllPosId);
@@ -35,6 +36,7 @@ public class UpdateTrafficController {
 
         while(resultSet.next()) {//while 对所有找到的位置进行遍历
             posId = resultSet.getInt("posId");
+
             new_currentDiners = countCurrentDine(posId,currentTime);//通过cCD方法获取正在用餐人数
             new_increaseDiners = calDineIncrease(new_currentDiners,posId);//通过cDI方法计算新增人数
             updateTMDine(currentTime,new_increaseDiners,new_currentDiners,posId);
@@ -49,7 +51,8 @@ public class UpdateTrafficController {
      * 返回需要插入Traffic1表的currentNum
      */
     public static void UpdateLiningTraffic() throws Exception {
-        String sql_getAllWinId = "select* from `Window`";
+        String sql_getAllWinId = "select* from `Window` "+
+        "where winId != 0";
         Connection connection = DBconnect.getConnection();
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(sql_getAllWinId);

@@ -133,7 +133,8 @@ public class DiningHallController {
  * @return HashMap<posName+floor+"层",posId>
  */
      public static HashMap<String, Integer> getAllPosition() throws Exception {
-        String sql_getAllPosition = "select * from `Position`";
+        String sql_getAllPosition = "select * from `Position` " +
+                "where posId != 0";
         HashMap<String,Integer> map=new HashMap<>();
         Connection connection = DBconnect.getConnection();
         Statement statement = connection.createStatement();
