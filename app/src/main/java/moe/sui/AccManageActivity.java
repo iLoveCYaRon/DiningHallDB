@@ -55,8 +55,6 @@ public class AccManageActivity extends AppCompatActivity {
         mLoginUsername.setText(pref.getString("username", ""));
         mLoginPassword.setText(pref.getString("password", ""));
 
-        //检查登录态
-        login();
     }
 
     /**
@@ -115,6 +113,7 @@ public class AccManageActivity extends AppCompatActivity {
                     pref.putString("password", mLoginPassword.getText().toString());
                     pref.putInt("uid", msg.what);
                     pref.apply();
+                    onBackPressed();
             }
             Toast.makeText(getApplicationContext(), notice, Toast.LENGTH_SHORT).show();
         }

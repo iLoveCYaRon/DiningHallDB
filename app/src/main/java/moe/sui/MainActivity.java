@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.qmuiteam.qmui.layout.QMUIButton;
@@ -60,6 +62,13 @@ public class MainActivity extends AppCompatActivity {
 //            Toast.makeText(MainActivity.this, "登录失败，请检查填写信息", Toast.LENGTH_SHORT).show();
 //        }
 //    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initTopBar();
+    }
 
     /**
      * 清除数据库表数据
@@ -135,17 +144,24 @@ public class MainActivity extends AppCompatActivity {
     void initTopBar() {
         QMUITopBar topBar = findViewById(R.id.topbar_main);
         topBar.setTitle("主界面");
+        topBar.removeAllLeftViews();
         Button leftButton = topBar.addLeftTextButton("登录", R.id.empty_view_button);
         leftButton.setTextColor(R.color.colorBackground);
         leftButton.setOnClickListener(v -> {
             if(getSharedPreferences("account", MODE_PRIVATE).getBoolean("status", false)) {
-                startActivity(new Intent(getApplicationContext(), AccManageActivity.class));
-            } else {
                 Toast.makeText(getApplicationContext(), "您已成功登录过，无需再次登录", Toast.LENGTH_SHORT).show();
-                // 启动个人信息页 可在个人信息页退出登录
-                startActivity(new Intent(getApplicationContext(), AccManageActivity.class));
             }
+            startActivity(new Intent(getApplicationContext(), AccManageActivity.class));
         });
+
+        // 更新主界面UID
+        if(getSharedPreferences("account", MODE_PRIVATE).getBoolean("status", false)) {
+            TextView text = findViewById(R.id.text_userInfo);
+            SharedPreferences pref = getSharedPreferences("account", MODE_PRIVATE);
+            String content = "UID: " + String.valueOf(pref.getInt("uid", 0)) + "\n登录账户：" + pref.getString("username", "");
+            text.setText(content);
+        }
+
     }
 
     @OnClick(R.id.btn_addMealRecord) void toRecordActivity() {
